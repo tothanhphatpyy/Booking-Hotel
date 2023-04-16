@@ -1,8 +1,9 @@
 import React from 'react';
-import {InsideRoute} from './InsideRoute';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {DetailStoriesScreen} from '@src/screens/DetailStories';
 import {RootStackScreensParams, ScreensName} from './types';
+import { AuthRoute } from './AuthRoute';
+import { TabRoute } from './TabRoute';
 
 const RootStackStack = createNativeStackNavigator<RootStackScreensParams>();
 
@@ -15,24 +16,26 @@ const RootStack: BookshelfRoute[] = [
     name: ScreensName.DetailStoriesScreen,
     component: DetailStoriesScreen,
   },
+
 ];
 
 function Root() {
   return (
+    
     <RootStackStack.Navigator>
       <RootStackStack.Screen
-        name={ScreensName.InsideRoute}
-        component={InsideRoute}
+        name= {ScreensName.AuthRoute}
+        component={ AuthRoute }
         options={{headerShown: false}}
       />
-      {RootStack.map(item => (
-        <RootStackStack.Screen
-          key={item.name}
-          name={item.name}
-          component={item.component}
-        />
-      ))}
+      <RootStackStack.Screen
+        name= {ScreensName.TabRoute}
+        component={ TabRoute }
+        options={{headerShown: false}}
+      />
+      
     </RootStackStack.Navigator>
+    
   );
 }
 

@@ -1,22 +1,30 @@
 {
-  "extends": "@tsconfig/react-native/tsconfig.json",
-  "compilerOptions": {
-    "moduleResolution": "node" /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */,
-    "jsx": "react", // Support JSX in .tsx files
-    "skipLibCheck": true, // Skip type checking of all declaration files
-    "baseUrl": "./" /* Base directory to resolve non-absolute module names. */,
-    "paths": {
-      "@src/*": ["src/*"]
-    } /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */,
-    "typeRoots": [
-      "./src/types"
-    ] /* List of folders to include type definitions from. */
-  },
-  "include": ["src", "custom.d.ts", "types"],
-  "exclude": [
-    "node_modules",
-    "babel.config.js",
-    "metro.config.js",
-    "jest.config.js"
-  ]
+  
+    "extends": "@tsconfig/react-native/tsconfig.json",
+    "compilerOptions": {
+      "moduleResolution": "node" /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */,
+      "jsx": "react", // Support JSX in .tsx files
+      "skipLibCheck": true, // Skip type checking of all declaration files
+      "baseUrl": "./" /* Base directory to resolve non-absolute module names. */,
+      "paths": {
+        "@src/*": ["src/*"]
+      } /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */,
+      "typeRoots": [
+        "./src/types"
+      ] /* List of folders to include type definitions from. */,
+      "target": "es2016",  
+      "module": "commonjs",
+      "esModuleInterop": true, 
+      "forceConsistentCasingInFileNames": true,
+      "strict": true, 
+      
+    },
+    "include": ["src", "custom.d.ts", "types", "app.d.ts"],
+    "exclude": [
+      "node_modules",
+      "babel.config.js",
+      "metro.config.js",
+      "jest.config.js"
+    ],
+    
 }

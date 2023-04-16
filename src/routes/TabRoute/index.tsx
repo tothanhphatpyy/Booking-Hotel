@@ -5,9 +5,9 @@ import {CommunityRoute} from './CommunityRoute';
 import {HomeRoute} from './HomeRoute';
 import {SearchRoute} from './SearchRoot';
 import {SettingRoute} from './SettingRoute';
-import {ScreensName} from '../types';
+import {ScreensName, TabStackScreenParams} from '../types';
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<TabStackScreenParams>();
 
 interface TabNavigatorProps {
   name: any;
@@ -43,7 +43,7 @@ const TabNavigator: TabNavigatorProps[] = [
   },
 ];
 
-function InsideRoute() {
+const TabRoute = () => {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -63,4 +63,4 @@ function InsideRoute() {
   );
 }
 
-export {InsideRoute};
+export { TabRoute };

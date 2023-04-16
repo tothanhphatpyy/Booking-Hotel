@@ -1,20 +1,48 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 export enum ScreensName {
+  /* Screen */
+
+  //screens in Auth
+  SignUpScreen = 'SignUpScreen',
+  SignInScreen = 'SignInScreen',
+  OtpPhoneScreen = 'OtpPhoneScreen',
+  ConfirmPasswordScreen = 'ConfirmPasswordScreen',
+  RegistrationInfoUser = 'RegistrationInfoUser',
+  RegistrationInfoUserScreen = 'RegisterPhoneScreen',
+
   BookshelfScreen = 'BookshelfScreen',
   CommunityScreen = 'CommunityScreen',
   HomeScreen = 'HomeScreen',
   SearchScreen = 'SearchScreen',
   DetailStoriesScreen = 'DetailStoriesScreen',
   SettingScreen = 'SettingScreen',
+  
 
+  /* Route */
+
+  //route in Auth
+  AuthRoute = 'AuthRoute',
+  SignInRoute = 'SignInRoute',
+  
+  //route in Tabs
+  TabRoute = 'TabRoute',
   HomeRoute = 'HomeRoute',
   SearchRoute = 'SearchRoute',
   BookshelfRoute = 'BookshelfRoute',
   CommunityRoute = 'CommunityRoute',
   SettingRoute = 'SettingRoute',
+
+  //route in InsideApp
   InsideRoute = 'InsideRoute',
+  
+  
+  
+  
+
+
 }
+
 export type BookshelfStackScreensParams = {
   [ScreensName.BookshelfScreen]: undefined;
 };
@@ -52,13 +80,41 @@ export type SettingStackScreensParams = {
 export type SettingRouteScreenProps<T extends keyof SettingStackScreensParams> =
   NativeStackScreenProps<SettingStackScreensParams, T>;
 
-export type RootStackScreensParams = {
+export type SignInStackScreenParams = {
+  [ScreensName.SignInScreen]: undefined;
+  [ScreensName.OtpPhoneScreen]: undefined;
+  [ScreensName.ConfirmPasswordScreen]: undefined;
+  [ScreensName.RegistrationInfoUserScreen]: undefined;
+};
+
+export type SignInRouteScreenProps<T extends keyof SignInStackScreenParams> =
+  NativeStackScreenProps<SignInStackScreenParams, T>;
+
+export type AuthStackScreenParams = {
+  [ScreensName.SignUpScreen]: undefined;
+  [ScreensName.SignInRoute]: undefined;
+};
+
+export type AuthRouteScreenProps<T extends keyof AuthStackScreenParams> =
+  NativeStackScreenProps<AuthStackScreenParams, T>;
+
+export type TabStackScreenParams = {
+  [ScreensName.HomeRoute] : undefined;
+  [ScreensName.CommunityRoute] : undefined;
+  [ScreensName.SearchRoute] : undefined;
+  [ScreensName.BookshelfRoute] : undefined;
+  [ScreensName.SettingRoute] : undefined;
   [ScreensName.DetailStoriesScreen]: undefined;
-  [ScreensName.CommunityRoute]: undefined;
-  [ScreensName.SearchRoute]: undefined;
-  [ScreensName.BookshelfRoute]: undefined;
-  [ScreensName.HomeRoute]: undefined;
-  [ScreensName.SettingRoute]: undefined;
+}
+
+export type TabRouteScreenProps<T extends keyof TabStackScreenParams> =
+  NativeStackScreenProps<TabStackScreenParams, T>;
+
+export type RootStackScreensParams = {
+  [ScreensName.AuthRoute]: undefined;
+  [ScreensName.TabRoute]: undefined;
+  
+  
 };
 
 export type RootRouteScreenProps<T extends keyof RootStackScreensParams> =
