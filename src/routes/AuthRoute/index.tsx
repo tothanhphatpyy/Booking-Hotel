@@ -19,7 +19,7 @@ const Stack: AuthNavigatorProps[] = [
     title: 'SignUp Screen',
   },
   {
-    name: ScreensName.OtpPhoneScreen,
+    name: ScreensName.SignInRoute,
     component: SignInRoute,
     title: 'SignIn Route',
   },

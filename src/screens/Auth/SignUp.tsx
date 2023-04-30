@@ -1,7 +1,8 @@
-import { Text, TouchableOpacity, View, Button } from 'react-native'
+import { Text, TouchableOpacity, View, Button, Image, TextInput, StyleSheet } from 'react-native'
 import React from 'react';
 import {AuthRouteScreenProps, ScreensName} from '@src/routes/types';
 import { useNavigation } from '@react-navigation/native';
+import * as Animatable from 'react-native-animatable';
 
 const SignUpScreen: React.FC<
 AuthRouteScreenProps<ScreensName.SignUpScreen>>= () => {
@@ -10,14 +11,86 @@ AuthRouteScreenProps<ScreensName.SignUpScreen>>= () => {
 
   return (
     
-    <View className={'flex-1 justify-center items-center'}>
-      <Text style={{color: 'black'}}>SignUp</Text>
-      <TouchableOpacity style={{marginTop: 30}}>
-          <Button 
-            title='Sign In' 
-            color={'pink'}
-            onPress={() => navigate('SignInRoute')} />
-      </TouchableOpacity>
+    <View className={'flex-1 items-center bg-gray-50'}>
+      <Animatable.Image
+        animation="fadeInDown"
+        className='object-contain h-2/6 w-full'
+        source={require('@src/assets/images/app/logo_cover.png')}
+      />
+      <Animatable.View className='h-full w-full rounded-t-3xl' animation="fadeInUpBig">
+        <Text className='text-2xl ml-5 font-semibold mt-1 text-gray-950'>Đăng Nhập</Text>
+        <View className='ml-5 mt-1'>
+          <Text className='text-xl text-gray-950 mt-5 text-left font-semibold'>Số điện thoại</Text>
+            <TextInput
+            /* value={userName} */
+            className='text-gray border-gray-400 border-b w-9/12 text-black text-lg'
+            /* onChangeText={setUserName} */
+            placeholderTextColor={'gray'}
+            placeholder="Nhập số điện thoại của bạn"
+            keyboardType="numeric"
+            />
+            
+            <Text className='text-xl text-gray-950 mt-5 font-semibold'>Mật khẩu</Text>
+            <TextInput
+            /* value={userName} */
+            className='text-gray border-gray-400 border-b w-9/12 text-black text-lg'
+            /* onChangeText={setUserName} */
+            placeholderTextColor={'gray'}
+            placeholder="Nhập mật khẩu"
+            keyboardType="numeric"
+            />
+
+            <TouchableOpacity 
+              onPress={() => navigate('AuthRoute', {screen : ScreensName.SignInRoute})}>
+              <Text className='text-black text-base ml-44 mt-2 text-right mr-7 font-semibold'>Quên mật khẩu?</Text>
+            </TouchableOpacity>
+
+
+          </View>
+          <TouchableOpacity>
+            <Text className='mt-5 text-center py-3 rounded-xl mx-5 text-lg text-white font-semibold bg-red-400'
+              onPress = {() => navigate('TabRoute')}>
+              ĐĂNG NHẬP
+            </Text>
+          </TouchableOpacity>
+          <View className='flex flex-row justify-end mr-7 mt-2'>
+              <Text className='text-black text-base'>Bạn chưa có tài khoản?</Text>
+              <TouchableOpacity>
+                <Text className='text-black ml-1 text-base font-semibold'
+                      onPress = {() => navigate('AuthRoute', {screen : ScreensName.SignInRoute})} 
+                >Đăng kí ngay</Text>
+              </TouchableOpacity>     
+          </View>
+
+          <View className='items-center mt-5'>
+            <Text className='text-black text-base font-semibold'>Hoặc đăng nhập bằng</Text>
+            <View className='flex flex-row space-x-10 mt-5'>
+              <TouchableOpacity style= {styles.img}>
+                <Image
+                  className='object-contain h-9 w-9'
+                  source={{uri : 'https://i.imgur.com/k9Oo1CW.png'}} //logo Apple
+                />
+              </TouchableOpacity>
+              <TouchableOpacity style= {styles.img}
+                onPress={async() => {
+                }}>
+                <Image
+                    className='object-contain h-9 w-9'
+                    source={{uri : 'https://i.imgur.com/4JYzqQD.png'}} //logo Google
+                  />
+              </TouchableOpacity>
+              <TouchableOpacity style= {styles.img}>
+                <Image
+                    className='object-contain h-9 w-9'
+                    source={{uri : 'https://i.imgur.com/ID7QQxF.png'}} //logo FB
+                  />
+              </TouchableOpacity>
+            </View>
+          </View>
+          
+          
+       </Animatable.View>
+      
     </View>
     
     
@@ -25,3 +98,18 @@ AuthRouteScreenProps<ScreensName.SignUpScreen>>= () => {
 }
 
 export {SignUpScreen}
+
+const styles = StyleSheet.create({
+
+  img : {
+    height: '50%',
+    width: '12%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderBottomWidth: 3,
+    borderRightWidth: 3,
+    borderColor: '#DCDCDC',
+    borderRadius : 25,
+    padding: 10
+  },
+})

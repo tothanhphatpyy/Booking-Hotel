@@ -21,7 +21,7 @@ const OnBoardingScreen: React.FC<
     <Container flex={1} background="WHITE" justify="center" align="center">
       <Image
         className='h-40 w-40'
-        source={require('@src/assets/images/logo.png')}
+        source={require('@src/assets/images/app/logo.png')}
       />
       <Text className='text-[#FF8C00] font-medium text-4xl'>
         {i18n.t('app_name')}
