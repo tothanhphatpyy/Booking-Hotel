@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 const SignUpScreen: React.FC<
 AuthRouteScreenProps<ScreensName.SignUpScreen>>= () => {
 
-  const {navigate}: any = useNavigation();
+  const { navigate }: any = useNavigation();
 
   return (
     

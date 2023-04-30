@@ -3,6 +3,9 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 export enum ScreensName {
   /* Screen */
 
+  //screen in OnBoarding
+  OnBoardingScreen = 'OnBoardingScreen',
+
   //screens in Auth
   SignUpScreen = 'SignUpScreen',
   SignInScreen = 'SignInScreen',
@@ -22,6 +25,7 @@ export enum ScreensName {
   /* Route */
 
   //route in Auth
+  OnBoardingRoute = 'OnBoardingRoute',
   AuthRoute = 'AuthRoute',
   SignInRoute = 'SignInRoute',
   
@@ -80,6 +84,13 @@ export type SettingStackScreensParams = {
 export type SettingRouteScreenProps<T extends keyof SettingStackScreensParams> =
   NativeStackScreenProps<SettingStackScreensParams, T>;
 
+export type OnBoardingStackScreenParams = {
+  [ScreensName.OnBoardingScreen]: undefined;
+};
+
+export type OnBoardingRouteScreenProps<T extends keyof OnBoardingStackScreenParams> =
+  NativeStackScreenProps<OnBoardingStackScreenParams, T>;
+
 export type SignInStackScreenParams = {
   [ScreensName.SignInScreen]: undefined;
   [ScreensName.OtpPhoneScreen]: undefined;
@@ -111,10 +122,9 @@ export type TabRouteScreenProps<T extends keyof TabStackScreenParams> =
   NativeStackScreenProps<TabStackScreenParams, T>;
 
 export type RootStackScreensParams = {
+  [ScreensName.OnBoardingRoute]: undefined;
   [ScreensName.AuthRoute]: undefined;
   [ScreensName.TabRoute]: undefined;
-  
-  
 };
 
 export type RootRouteScreenProps<T extends keyof RootStackScreensParams> =
