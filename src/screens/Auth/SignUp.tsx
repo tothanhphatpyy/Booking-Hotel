@@ -3,15 +3,28 @@ import React from 'react';
 import {AuthRouteScreenProps, ScreensName} from '@src/routes/types';
 import { useNavigation } from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
+import { useRequest } from 'ahooks';
+import { listUserApi } from '@src/services/api/userApi';
+import Loading from '@src/components/Loading';
+import ButtonLinear from '@src/components/ButtonLinear';
 
 const SignUpScreen: React.FC<
 AuthRouteScreenProps<ScreensName.SignUpScreen>>= () => {
 
   const { navigate }: any = useNavigation();
-
+  const {data, runAsync, loading} = useRequest(async () => listUserApi(), {manual: true});
+  const handleLogin = async() => {
+    runAsync().then((data) => {
+     /*  console.log(data); */
+    }).catch((error) => {
+      console.log(error);
+    })
+  }
+  
   return (
     
     <View className={'flex-1 items-center bg-gray-50'}>
+      {loading && <Loading loading={loading}/>}
       <Animatable.Image
         animation="fadeInDown"
         className='object-contain h-2/6 w-full'
@@ -42,23 +55,23 @@ AuthRouteScreenProps<ScreensName.SignUpScreen>>= () => {
 
             <TouchableOpacity 
               onPress={() => navigate('AuthRoute', {screen : ScreensName.SignInRoute})}>
-              <Text className='text-black text-base ml-44 mt-2 text-right mr-7 font-semibold'>Quên mật khẩu?</Text>
+              <Text className='text-black text-base ml-44 mt-2 text-right mr-7 font-semibold'>
+                Quên mật khẩu?
+              </Text>
             </TouchableOpacity>
 
 
           </View>
-          <TouchableOpacity>
-            <Text className='mt-5 text-center py-3 rounded-xl mx-5 text-lg text-white font-semibold bg-red-400'
-              onPress = {() => navigate('TabRoute')}>
-              ĐĂNG NHẬP
-            </Text>
+          <TouchableOpacity onPress = {() => {handleLogin()} } className='mt-5 rounded-xl mx-5'>
+          <ButtonLinear text={'ĐĂNG NHẬP'}/>
           </TouchableOpacity>
           <View className='flex flex-row justify-end mr-7 mt-2'>
               <Text className='text-black text-base'>Bạn chưa có tài khoản?</Text>
               <TouchableOpacity>
                 <Text className='text-black ml-1 text-base font-semibold'
-                      onPress = {() => navigate('AuthRoute', {screen : ScreensName.SignInRoute})} 
-                >Đăng kí ngay</Text>
+                  onPress = {() => navigate('AuthRoute', {screen : ScreensName.SignInRoute})}>
+                  Đăng kí ngay
+                </Text>
               </TouchableOpacity>     
           </View>
 

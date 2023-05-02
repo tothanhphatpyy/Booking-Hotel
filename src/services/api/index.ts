@@ -11,9 +11,9 @@ const REQ_TIMEOUT = 25 * 1000;
 export const __DEV__ =
   !process.env.NODE_ENV || process.env.NODE_ENV === 'development';
 
-console.log('🚀 BASE_URL_APP:', BASE_URL_APP);
+/* console.log('🚀 BASE_URL_APP:', BASE_URL_APP); */
 export const instance = axios.create({
-  baseURL: BASE_URL_APP,
+  baseURL: 'http://192.168.1.5:3000',
   timeout: REQ_TIMEOUT,
 });
 
@@ -67,7 +67,7 @@ const errorHandler = (error: AxiosError) => {
   }
 
   if (__DEV__) {
-    console.log(`Response API:`, resError?.data);
+    /* console.log(`Response API:`, resError?.data); */
   }
 
   return Promise.reject({...resError?.data});
@@ -75,7 +75,7 @@ const errorHandler = (error: AxiosError) => {
 
 const successHandler = async (response: AxiosResponse) => {
   if (__DEV__) {
-    console.log(`Response API: ${response.config.url}`, response.data);
+    /* console.log(`Response API: ${response.config.url}`, response.data); */
   }
   const data: any = response.data;
   if (!data || data.status === 'INVALID_TOKEN' || data.code === UNAUTHORIZED) {

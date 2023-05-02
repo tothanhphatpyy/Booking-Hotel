@@ -17,7 +17,7 @@
       "esModuleInterop": true, 
       "forceConsistentCasingInFileNames": true,
       "strict": true, 
-      
+      "types": ["node"],
     },
     "include": ["src", "custom.d.ts", "types", "app.d.ts"],
     "exclude": [

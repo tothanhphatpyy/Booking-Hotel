@@ -1,4 +1,6 @@
-export enum COLORS {
+enum COLORS {
+  //Button Linear
+
   WHITE = '#FFFFFF',
   BLACK = '#000000',
   PRIMARY = '#3C91FF',
@@ -28,3 +30,6 @@ export enum COLORS {
   RED_500 = 'rgba(250, 198, 195, 1)',
   RED_600 = 'rgba(255, 243, 242, 1)',
 }
+const LINEAR_COLORS : string[] = ['#FF9900', '#FF6666', '#FF6600']
+
+export {COLORS, LINEAR_COLORS}
