@@ -3,8 +3,12 @@ import {atom, useRecoilState, useSetRecoilState, useRecoilValue} from 'recoil';
 const USER_INFO = atom({
   key: 'USER_STATE', // unique ID (with respect to other atoms/selectors)
   default: {
+    id: '',
+    username: '',
+    name: '',
     email: '',
-    phone: '',
+    role: '',
+    status: '',
   }, // default value (aka initial value)
 });
 

@@ -5,11 +5,20 @@ import {TextStories} from '@src/components/TextStories/index';
 import {ScreensName, SettingRouteScreenProps} from '@src/routes/types';
 import {MARGIN_TOP_DEVICE} from '@src/ultis/constants';
 import React from 'react';
-import {Image, ScrollView, StyleSheet} from 'react-native';
+import {Image, ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
+import ButtonLinear from '@src/components/ButtonLinear';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useUserInfoState } from '@src/atom/user';
 
 const SettingScreen: React.FC<
   SettingRouteScreenProps<ScreensName.SettingScreen>
 > = () => {
+  const [userInfo, setUserInfo] = useUserInfoState();
+  const handleLogout =() =>{
+    AsyncStorage.clear();
+    setUserInfo(user => ({...user, id: '' }))
+  }
+
   return (
     <Container flex={1} padding={[0, 16]} background="WHITE">
       <ScrollView bounces={false}>
@@ -38,6 +47,9 @@ const SettingScreen: React.FC<
             <TextStories margin={[0, 0, 0, 10]}>{item?.name}</TextStories>
           </Container>
         ))}
+        <TouchableOpacity onPress = {() => {handleLogout()} } className='mt-5 rounded-xl mx-5'>
+          <ButtonLinear text={'ĐĂNG XUẤT'}/>
+        </TouchableOpacity>
       </ScrollView>
     </Container>
   );

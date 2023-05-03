@@ -1,21 +1,40 @@
 import { Text, TouchableOpacity, View, Button, Image, TextInput, StyleSheet } from 'react-native'
-import React from 'react';
+import React, { useState } from 'react';
 import {AuthRouteScreenProps, ScreensName} from '@src/routes/types';
 import { useNavigation } from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
 import { useRequest } from 'ahooks';
-import { listUserApi } from '@src/services/api/userApi';
+import { loginApi } from '@src/services/api/userApi';
 import Loading from '@src/components/Loading';
 import ButtonLinear from '@src/components/ButtonLinear';
+import { useUserInfoState } from '@src/atom/user';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SignUpScreen: React.FC<
 AuthRouteScreenProps<ScreensName.SignUpScreen>>= () => {
-
+  const [userInfo, setUserInfo] = useUserInfoState();
   const { navigate }: any = useNavigation();
-  const {data, runAsync, loading} = useRequest(async () => listUserApi(), {manual: true});
+  const [userName, setUserName] = useState('');
+  const [passWord, setPassWord] = useState('');
+
+  const { data, runAsync, loading } = useRequest(async () => 
+    loginApi({
+      username: userName, 
+      password : passWord
+    }),{ debounceWait: 300, manual: true});
+
   const handleLogin = async() => {
-    runAsync().then((data) => {
-     /*  console.log(data); */
+    await runAsync().then((res: any) => {
+      setUserInfo(user => ({...user, 
+        id: res._id, 
+        username: res.username,
+        name: res.name,
+        email: res.email,
+        role: res.role,
+        status: res.status,
+      }))
+      AsyncStorage.setItem('user', JSON.stringify(res))
+      navigate(navigate('TabRoute', {screen : ScreensName.HomeScreen}))
     }).catch((error) => {
       console.log(error);
     })
@@ -35,9 +54,9 @@ AuthRouteScreenProps<ScreensName.SignUpScreen>>= () => {
         <View className='ml-5 mt-1'>
           <Text className='text-xl text-gray-950 mt-5 text-left font-semibold'>Số điện thoại</Text>
             <TextInput
-            /* value={userName} */
-            className='text-gray border-gray-400 border-b w-9/12 text-black text-lg'
-            /* onChangeText={setUserName} */
+            value={userName}
+            className='text-gray border-gray-400 border-b w-9/12 text-black text-base'
+            onChangeText={text => setUserName(text)}
             placeholderTextColor={'gray'}
             placeholder="Nhập số điện thoại của bạn"
             keyboardType="numeric"
@@ -45,12 +64,13 @@ AuthRouteScreenProps<ScreensName.SignUpScreen>>= () => {
             
             <Text className='text-xl text-gray-950 mt-5 font-semibold'>Mật khẩu</Text>
             <TextInput
-            /* value={userName} */
-            className='text-gray border-gray-400 border-b w-9/12 text-black text-lg'
-            /* onChangeText={setUserName} */
+            value={passWord}
+            className='text-gray border-gray-400 border-b w-9/12 text-black text-base'
+            onChangeText={text => setPassWord(text)}
             placeholderTextColor={'gray'}
             placeholder="Nhập mật khẩu"
             keyboardType="numeric"
+            secureTextEntry={true}
             />
 
             <TouchableOpacity 
@@ -100,8 +120,6 @@ AuthRouteScreenProps<ScreensName.SignUpScreen>>= () => {
               </TouchableOpacity>
             </View>
           </View>
-          
-          
        </Animatable.View>
       
     </View>
