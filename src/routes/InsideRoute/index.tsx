@@ -2,6 +2,7 @@ import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ScreensName, InsideStackScreenParams } from '../types';
 import { RoomOfLocationScreen } from '@src/screens/Inside/Home_tab/RoomOfLocation';
+import { RoomInfoScreen } from '@src/screens/Inside/Room/RoomInfo';
 
 const InsideStack = createNativeStackNavigator<InsideStackScreenParams>();
 interface OnBoardingNavigatorProps {
@@ -14,6 +15,11 @@ const Stack: OnBoardingNavigatorProps[] = [
     name: ScreensName.RoomOfLocationScreen,
     component: RoomOfLocationScreen,
     title: 'Room Of Location',
+  },
+  {
+    name: ScreensName.RoomInfoScreen,
+    component: RoomInfoScreen,
+    title: 'Room Info',
   },
 ]
 

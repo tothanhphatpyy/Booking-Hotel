@@ -23,6 +23,7 @@ export enum ScreensName {
 
   //screens in InsideApp
   RoomOfLocationScreen = 'RoomOfLocationScreen',
+  RoomInfoScreen = 'RoomInfoScreen',
 
   /* Route */
   //route in Auth
@@ -118,6 +119,7 @@ export type TabRouteScreenProps<T extends keyof TabStackScreenParams> =
 
 export type InsideStackScreenParams = {
   [ScreensName.RoomOfLocationScreen] : undefined;
+  [ScreensName.RoomInfoScreen] : undefined;
   
 }
   

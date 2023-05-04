@@ -8,7 +8,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 const RoomOfLocationScreen: React.FC<
 InsideRouteScreenProps<ScreensName.RoomOfLocationScreen>> = () => {
   const { params }: any = useRoute();
-  const navigation : any = useNavigation();
+  const { navigate, goBack } : any = useNavigation();
   const [colorEvent, setColorEvent] = useState(false);
 
   let idLocation = params.idLocation;
@@ -31,7 +31,7 @@ InsideRouteScreenProps<ScreensName.RoomOfLocationScreen>> = () => {
       <View style={{marginTop: 10, height: 50, backgroundColor: '#E6E6E6', alignItems: 'center', 
                     flexDirection: 'row', borderRadius: 5, marginHorizontal: 15}}>
         <TouchableOpacity style={{padding: 10}}
-                          onPress={() => navigation.goBack()}>
+                          onPress={() => goBack()}>
           <Image
               style={{resizeMode: 'contain', width: 20, height: 30, tintColor: 'orange'}}
               source= {{uri: 'https://i.imgur.com/1RCGweh.png'}}/>
@@ -78,7 +78,7 @@ InsideRouteScreenProps<ScreensName.RoomOfLocationScreen>> = () => {
                                       shadowOpacity: 0.37,
                                       shadowRadius: 7.49,
                                       elevation: 12,}}
-                                onPress= {() => navigation.navigate('Thông tin phòng', {idRoomSuggest : item._id})}> 
+                                onPress= {() => navigate('InsideRoute', {screen : ScreensName.RoomInfoScreen, params: {idRoomSuggest : item._id}})}> 
                 <Image
                   style={{resizeMode: 'cover', width: '100%', height: 170, borderTopRightRadius: 10, borderTopLeftRadius: 10}}
                   source= {{uri: item.img}}/>
