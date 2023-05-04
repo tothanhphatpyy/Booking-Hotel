@@ -1,12 +1,9 @@
-import { StyleSheet, Text, View } from 'react-native';
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ScreensName, OnBoardingStackScreenParams } from '../types';
 import { OnBoardingScreen } from '@src/screens/OnBoarding';
 
-
 const OnBoardingStack = createNativeStackNavigator<OnBoardingStackScreenParams>();
-
 interface OnBoardingNavigatorProps {
   name: any;
   component: any;

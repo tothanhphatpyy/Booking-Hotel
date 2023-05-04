@@ -33,8 +33,8 @@ AuthRouteScreenProps<ScreensName.SignUpScreen>>= () => {
         role: res.role,
         status: res.status,
       }))
-      AsyncStorage.setItem('user', JSON.stringify(res))
-      navigate(navigate('TabRoute', {screen : ScreensName.HomeScreen}))
+      AsyncStorage.setItem('user', JSON.stringify(res));
+      navigate('TabRoute', {screen : ScreensName.HomeScreen});
     }).catch((error) => {
       console.log(error);
     })

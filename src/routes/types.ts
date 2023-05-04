@@ -2,7 +2,6 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 export enum ScreensName {
   /* Screen */
-
   //screen in OnBoarding
   OnBoardingScreen = 'OnBoardingScreen',
 
@@ -14,16 +13,18 @@ export enum ScreensName {
   RegistrationInfoUser = 'RegistrationInfoUser',
   RegistrationInfoUserScreen = 'RegisterPhoneScreen',
 
+  //screens in Tab
   BookshelfScreen = 'BookshelfScreen',
   CommunityScreen = 'CommunityScreen',
   HomeScreen = 'HomeScreen',
   SearchScreen = 'SearchScreen',
   DetailStoriesScreen = 'DetailStoriesScreen',
   SettingScreen = 'SettingScreen',
-  
+
+  //screens in InsideApp
+  RoomOfLocationScreen = 'RoomOfLocationScreen',
 
   /* Route */
-
   //route in Auth
   OnBoardingRoute = 'OnBoardingRoute',
   AuthRoute = 'AuthRoute',
@@ -40,11 +41,6 @@ export enum ScreensName {
   //route in InsideApp
   InsideRoute = 'InsideRoute',
   
-  
-  
-  
-
-
 }
 
 export type BookshelfStackScreensParams = {
@@ -115,16 +111,24 @@ export type TabStackScreenParams = {
   [ScreensName.SearchRoute] : undefined;
   [ScreensName.BookshelfRoute] : undefined;
   [ScreensName.SettingRoute] : undefined;
-  [ScreensName.DetailStoriesScreen]: undefined;
 }
 
 export type TabRouteScreenProps<T extends keyof TabStackScreenParams> =
   NativeStackScreenProps<TabStackScreenParams, T>;
 
+export type InsideStackScreenParams = {
+  [ScreensName.RoomOfLocationScreen] : undefined;
+  
+}
+  
+export type InsideRouteScreenProps<T extends keyof InsideStackScreenParams> =
+  NativeStackScreenProps<InsideStackScreenParams, T>;
+
 export type RootStackScreensParams = {
   [ScreensName.OnBoardingRoute]: undefined;
   [ScreensName.AuthRoute]: undefined;
   [ScreensName.TabRoute]: undefined;
+  [ScreensName.InsideRoute]: undefined;
 };
 
 export type RootRouteScreenProps<T extends keyof RootStackScreensParams> =

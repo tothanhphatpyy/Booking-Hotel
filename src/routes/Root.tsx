@@ -4,17 +4,16 @@ import {RootStackScreensParams, ScreensName} from './types';
 import { OnBoardingRoute } from './OnBoardingRoute';
 import { AuthRoute } from './AuthRoute';
 import { TabRoute } from './TabRoute';
+import { InsideRoute } from './InsideRoute';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useUserInfoState } from '@src/atom/user';
 
 const RootStack = createNativeStackNavigator<RootStackScreensParams>();
 
-
 function Root() {
   const [userInfo, setUserInfo] = useUserInfoState();
   const [loading, setIsLoading] = useState(true);
   useEffect(() => {
-    console.log(userInfo);
     const isLoggedIn = async() => {
       try {
         setTimeout(() => {
@@ -40,6 +39,7 @@ function Root() {
   },[]);
   
   return (
+
     <RootStack.Navigator>
       {loading &&
         <RootStack.Screen
@@ -61,9 +61,13 @@ function Root() {
         options={{headerShown: false}}
       />
       }
-      
+      <RootStack.Screen
+        name= {ScreensName.InsideRoute}
+        component={ InsideRoute }
+        options={{headerShown: false}}
+      />
     </RootStack.Navigator>
-    
+
   );
 }
 
