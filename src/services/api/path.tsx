@@ -11,5 +11,11 @@ export const PATH = {
   hotel_by_locationId: '/list-hotel/',
 
   // HOTEL_API_KEY
-  hotel_byId: '/list-hotel?hotelID='
+  hotel_byId: '/list-hotel?hotelID=',
+  
+  // ORDER_API_KEY
+  add_oder: '/add-oder',
+  list_oder: '/list-oder',
+  oder_byId: '/list-oder?oderID=',
+  oder_byUser: '/list-oder-by-user/',
 };

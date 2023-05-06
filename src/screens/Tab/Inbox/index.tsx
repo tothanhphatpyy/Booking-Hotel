@@ -1,12 +1,12 @@
 import { StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
-import { ScreensName, OnBoardingRouteScreenProps} from '@src/routes/types'
+import { ScreensName, ChatRouteScreenProps} from '@src/routes/types'
 import { Container } from '@src/components/Container';
 import * as Animatable from 'react-native-animatable';
 import i18n from '@src/ultis/i18n';
 
-const OnBoardingScreen: React.FC<
-  OnBoardingRouteScreenProps<ScreensName.OnBoardingScreen>> = () => {
+const ChatScreen: React.FC<
+  ChatRouteScreenProps<ScreensName.ChatScreen>> = () => {
   
   return (
     <Container flex={1} background="WHITE" justify="center" align="center">
@@ -22,6 +22,6 @@ const OnBoardingScreen: React.FC<
   )
 }
 
-export {OnBoardingScreen}
+export {ChatScreen}
 
 const styles = StyleSheet.create({})

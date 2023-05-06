@@ -1,12 +1,12 @@
 import React from 'react';
 import { Image } from 'react-native'
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {BookshelfRoute} from './BookshelfRoute';
-import {CommunityRoute} from './CommunityRoute';
-import {HomeRoute} from './HomeRoute';
-import {SearchRoute} from './SearchRoot';
-import {SettingRoute} from './SettingRoute';
-import {ScreensName, TabStackScreenParams} from '../types';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { OderRoute } from './OderRoute';
+import { ChatRoute } from './ChatRoute';
+import { HomeRoute } from './HomeRoute';
+import { FavoriteRoute } from './FavoriteRoute';
+import { SettingRoute } from './SettingRoute';
+import { ScreensName, TabStackScreenParams } from '../types';
 
 const Tab = createBottomTabNavigator<TabStackScreenParams>();
 
@@ -25,20 +25,20 @@ const TabNavigator: TabNavigatorProps[] = [
     img: 'https://i.imgur.com/rRWYPtR.png',
   },
   {
-    name: ScreensName.SearchRoute,
-    component: SearchRoute,
+    name: ScreensName.FavoriteRoute,
+    component: FavoriteRoute,
     title: 'Yêu thích',
     img: 'https://i.imgur.com/u2XSpbI.png',
   },
   {
-    name: ScreensName.BookshelfRoute,
-    component: BookshelfRoute,
+    name: ScreensName.OderRoute,
+    component: OderRoute,
     title: 'Đặt chỗ của tôi',
     img: 'https://i.imgur.com/PvW42Jd.png',
   },
   {
-    name: ScreensName.CommunityRoute,
-    component: CommunityRoute,
+    name: ScreensName.ChatRoute,
+    component: ChatRoute,
     title: 'Tin nhắn',
     img: 'https://i.imgur.com/SACmELL.png',
   },

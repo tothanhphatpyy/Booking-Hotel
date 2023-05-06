@@ -9,7 +9,7 @@ interface LoadingProps {
 
 const ButtonLinear: FunctionComponent<LoadingProps> = ({text}) => {
   return (
-    <LinearGradient colors={LINEAR_COLORS} className='rounded-xl'>
+    <LinearGradient colors={LINEAR_COLORS} className='rounded-xl' start={{x: 0, y: 0.5}} end={{x: 1, y: 1}}>
       <Text className='text-center py-3 text-lg text-white font-semibold'>
         {text}
       </Text>

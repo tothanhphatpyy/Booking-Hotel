@@ -30,19 +30,21 @@ InsideRouteScreenProps<ScreensName.RoomOfLocationScreen>> = () => {
         backgroundColor="black" />
       <View style={{marginTop: 10, height: 50, backgroundColor: '#E6E6E6', alignItems: 'center', 
                     flexDirection: 'row', borderRadius: 5, marginHorizontal: 15}}>
-        <TouchableOpacity style={{padding: 10}}
-                          onPress={() => goBack()}>
+        <TouchableOpacity 
+          style={{padding: 10}}
+          onPress={() => goBack()}>
           <Image
-              style={{resizeMode: 'contain', width: 20, height: 30, tintColor: 'orange'}}
-              source= {{uri: 'https://i.imgur.com/1RCGweh.png'}}/>
+            style={{resizeMode: 'contain', width: 20, height: 30, tintColor: 'orange'}}
+            source= {{uri: 'https://i.imgur.com/1RCGweh.png'}}
+        />
         </TouchableOpacity>
         <Text style={{color: 'black', fontWeight: '500', marginLeft: 10, fontSize: 15}}>{nameLocation}</Text>
       </View>
 
-      <View style={{flexDirection: 'row', marginTop: 20, backgroundColor: '#E6E6E6', paddingBottom: 15}}>
+      <View className='mt-2.5 px-5 bg-[#E6E6E6] flex flex-row pb-3.5 justify-between'>
         <TouchableOpacity style={styles.shadow}>
           <Image
-              style={{resizeMode: 'contain', width: 10, height: 10, tintColor: '#6B6B6B'}}
+              style={{resizeMode: 'contain', width: 11, height: 11, tintColor: '#6B6B6B'}}
               source= {{uri: 'https://i.imgur.com/Xcolnnq.png'}}/>
           <Text style={{color: 'black', fontSize: 12, marginLeft: 10}}>Khuyến mại</Text>
         </TouchableOpacity>
@@ -139,7 +141,7 @@ export {RoomOfLocationScreen}
 const styles = StyleSheet.create({
   shadow: {
     marginTop: 10, backgroundColor: 'white', borderRadius: 7, alignItems: 'center', flexDirection: 'row',
-    marginLeft: 15, paddingHorizontal: 10, paddingVertical: 2,
+    paddingHorizontal: 10, paddingVertical: 2,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,

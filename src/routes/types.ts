@@ -14,16 +14,16 @@ export enum ScreensName {
   RegistrationInfoUserScreen = 'RegisterPhoneScreen',
 
   //screens in Tab
-  BookshelfScreen = 'BookshelfScreen',
-  CommunityScreen = 'CommunityScreen',
   HomeScreen = 'HomeScreen',
-  SearchScreen = 'SearchScreen',
-  DetailStoriesScreen = 'DetailStoriesScreen',
+  FavoriteScreen = 'FavoriteScreen',
+  OderScreen = 'OderScreen',
+  ChatScreen = 'ChatScreen',
   SettingScreen = 'SettingScreen',
 
   //screens in InsideApp
   RoomOfLocationScreen = 'RoomOfLocationScreen',
   RoomInfoScreen = 'RoomInfoScreen',
+  ConfirmRoomScreen  = 'ConfirmRoomScreen',
 
   /* Route */
   //route in Auth
@@ -34,31 +34,15 @@ export enum ScreensName {
   //route in Tabs
   TabRoute = 'TabRoute',
   HomeRoute = 'HomeRoute',
-  SearchRoute = 'SearchRoute',
-  BookshelfRoute = 'BookshelfRoute',
-  CommunityRoute = 'CommunityRoute',
+  FavoriteRoute = 'FavoriteRoute',
+  OderRoute = 'OderRoute',
+  ChatRoute = 'ChatRoute',
   SettingRoute = 'SettingRoute',
 
   //route in InsideApp
   InsideRoute = 'InsideRoute',
   
 }
-
-export type BookshelfStackScreensParams = {
-  [ScreensName.BookshelfScreen]: undefined;
-};
-
-export type BookshelfRouteScreenProps<
-  T extends keyof BookshelfStackScreensParams,
-> = NativeStackScreenProps<BookshelfStackScreensParams, T>;
-
-export type CommunityStackScreensParams = {
-  [ScreensName.CommunityScreen]: undefined;
-};
-
-export type CommunityRouteScreenProps<
-  T extends keyof CommunityStackScreensParams,
-> = NativeStackScreenProps<CommunityStackScreensParams, T>;
 
 export type HomeStackScreensParams = {
   [ScreensName.HomeScreen]: undefined;
@@ -67,12 +51,26 @@ export type HomeStackScreensParams = {
 export type HomeRouteScreenProps<T extends keyof HomeStackScreensParams> =
   NativeStackScreenProps<HomeStackScreensParams, T>;
 
-export type SearchStackScreensParams = {
-  [ScreensName.SearchScreen]: undefined;
+export type FavoriteStackScreensParams = {
+  [ScreensName.FavoriteScreen]: undefined;
 };
 
-export type SearchRouteScreenProps<T extends keyof SearchStackScreensParams> =
-  NativeStackScreenProps<SearchStackScreensParams, T>;
+export type FavoriteRouteScreenProps<T extends keyof FavoriteStackScreensParams> =
+  NativeStackScreenProps<FavoriteStackScreensParams, T>;
+
+export type OderStackScreensParams = {
+  [ScreensName.OderScreen]: undefined;
+};
+
+export type OderRouteScreenProps<T extends keyof OderStackScreensParams> =
+  NativeStackScreenProps<OderStackScreensParams, T>;
+
+export type ChatStackScreensParams = {
+  [ScreensName.ChatScreen]: undefined;
+};
+
+export type ChatRouteScreenProps<T extends keyof ChatStackScreensParams> =
+  NativeStackScreenProps<ChatStackScreensParams, T>;
 
 export type SettingStackScreensParams = {
   [ScreensName.SettingScreen]: undefined;
@@ -108,9 +106,9 @@ export type AuthRouteScreenProps<T extends keyof AuthStackScreenParams> =
 
 export type TabStackScreenParams = {
   [ScreensName.HomeRoute] : undefined;
-  [ScreensName.CommunityRoute] : undefined;
-  [ScreensName.SearchRoute] : undefined;
-  [ScreensName.BookshelfRoute] : undefined;
+  [ScreensName.FavoriteRoute] : undefined;
+  [ScreensName.OderRoute] : undefined;
+  [ScreensName.ChatRoute] : undefined;
   [ScreensName.SettingRoute] : undefined;
 }
 
@@ -120,7 +118,7 @@ export type TabRouteScreenProps<T extends keyof TabStackScreenParams> =
 export type InsideStackScreenParams = {
   [ScreensName.RoomOfLocationScreen] : undefined;
   [ScreensName.RoomInfoScreen] : undefined;
-  
+  [ScreensName.ConfirmRoomScreen] : undefined;
 }
   
 export type InsideRouteScreenProps<T extends keyof InsideStackScreenParams> =

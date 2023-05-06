@@ -29,7 +29,10 @@ enum COLORS {
   RED_400 = 'rgba(242, 123, 114, 1)',
   RED_500 = 'rgba(250, 198, 195, 1)',
   RED_600 = 'rgba(255, 243, 242, 1)',
+
+  // LAYOYUT COLOR
+  LAYOUT = '#E6E6E6'
 }
-const LINEAR_COLORS : string[] = ['#FF9900', '#FF6666', '#FF6600']
+const LINEAR_COLORS : string[] = ['#FF4500', '#FF6347', '#FF8C00']
 
 export {COLORS, LINEAR_COLORS}

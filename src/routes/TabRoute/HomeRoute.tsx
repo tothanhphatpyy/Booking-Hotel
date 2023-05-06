@@ -5,11 +5,11 @@ import {HomeStackScreensParams, ScreensName} from '../types';
 
 const HomeStack = createNativeStackNavigator<HomeStackScreensParams>();
 
-interface HomeRoute {
+interface HomeNavigatorProps {
   name: typeof ScreensName.HomeScreen;
   component: typeof HomeScreen;
 }
-const Home: HomeRoute[] = [
+const Home: HomeNavigatorProps[] = [
   {
     name: ScreensName.HomeScreen,
     component: HomeScreen,
