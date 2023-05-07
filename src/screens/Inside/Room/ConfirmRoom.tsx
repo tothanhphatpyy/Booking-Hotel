@@ -15,6 +15,7 @@ import { useUserInfoStateValue } from '@src/atom/user'
 import { oderApi } from '@src/services/api/OderApi';
 import Loading from '@src/components/Loading';
 import ButtonLinear from '@src/components/ButtonLinear';
+import { useOderListState } from '@src/atom/oder';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -24,6 +25,7 @@ const ConfirmRoomScreen: React.FC<
   const { params }: any = useRoute();
   const { navigate, goBack} : any = useNavigation();
   const userInfo = useUserInfoStateValue();
+  const [loadingOder, setLoadingOder] = useOderListState();
 
   const getNextDay = useMemo(() => { 
     let nextDay = new Date();
@@ -45,7 +47,7 @@ const ConfirmRoomScreen: React.FC<
   const [numberOfChildren, setnumberOfChildren] = useState(0)
   const [numberOfInfant, setnumberOfInfant] = useState(0)
 
-  const idRoomOder = /* params.idRoomOder */'62bd6223049cbaefa5843999';
+  const idRoomOder = params.idRoomOder;
 
   const checkNumberPeople =(number) =>{
     if(number > 1){
@@ -87,12 +89,14 @@ const ConfirmRoomScreen: React.FC<
   const {  runAsync: runRequestOder, loading: loadingRequestOder } = useRequest(async () => 
     oderApi({
       totalPrice : totalPrice(), 
+      dayOder: getDay,
+      dayReturn: getDayReturn,
       dateOder : `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`, 
       dateReturn: `${dateReturn.getFullYear()}-${dateReturn.getMonth()+1}-${dateReturn.getDate()}`,  
       numberOfPeople, 
       numberOfChildren,
       hotel : idRoomOder, 
-      user: userInfo._id,
+      user: userInfo.id,
     }),{ debounceWait: 300, manual: true});
 
   useEffect(() => {
@@ -100,10 +104,12 @@ const ConfirmRoomScreen: React.FC<
   }, []);
 
   
-  const submitOder = async() => {
+  const submitOder = () => {
     await runRequestOder().then((res: any) => {
-      console.log(res);
       setmodalAccess(true);
+      setLoadingOder(loadingOder => ({...loadingOder, 
+        loading: !loadingOder.loading,         
+      }))
     }).catch((error) => {
       console.log(error);
     })
@@ -518,7 +524,7 @@ const ConfirmRoomScreen: React.FC<
                         style={{resizeMode: 'contain', width: 150, height: 150, marginTop: 10}}
                 />
                 <TouchableOpacity style={{}}
-                                  onPress={() => navigate('TabRoute', {screen : ScreensName.ConfirmRoomScreen, params: {idRoomOder : idRoomSuggest}})}>
+                                  onPress={() => navigate('TabRoute', {screen : ScreensName.OderRoute})}>
                   <LinearGradient
                     colors={['#F08080', '#FF6347', '#FF4500']}
                     start={{x: 0, y: 0.5}}
