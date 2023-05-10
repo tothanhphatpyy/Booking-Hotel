@@ -1,5 +1,5 @@
-import {ApiUtils} from '..';
-import {PATH} from '../path';
+import {ApiUtils} from '.';
+import {PATH} from './path';
 
 export const oderApi = async (data: object) => {
   return await ApiUtils.post(PATH.add_oder, data);

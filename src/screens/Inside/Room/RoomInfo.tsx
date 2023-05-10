@@ -2,7 +2,7 @@ import { ActivityIndicator, Image, ScrollView, StyleSheet, Text, TouchableOpacit
 import React, {useState,useEffect} from 'react'
 import { ScreensName, InsideRouteScreenProps} from '@src/routes/types'
 import { useRequest } from 'ahooks';
-import { HotelById, HotelByLocationApi } from '@src/services/api/hotelApi';
+import { HotelById } from '@src/services/api/HotelApi';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 

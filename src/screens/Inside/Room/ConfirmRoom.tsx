@@ -10,7 +10,7 @@ import i18n from '@src/ultis/i18n';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { useRequest } from 'ahooks'
-import { HotelById } from '@src/services/api/hotelApi'
+import { HotelById } from '@src/services/api/HotelApi'
 import { useUserInfoStateValue } from '@src/atom/user'
 import { oderApi } from '@src/services/api/OderApi';
 import Loading from '@src/components/Loading';
@@ -104,7 +104,7 @@ const ConfirmRoomScreen: React.FC<
   }, []);
 
   
-  const submitOder = () => {
+  const submitOder = async() => {
     await runRequestOder().then((res: any) => {
       setmodalAccess(true);
       setLoadingOder(loadingOder => ({...loadingOder, 

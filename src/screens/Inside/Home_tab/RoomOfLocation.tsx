@@ -2,7 +2,7 @@ import { ActivityIndicator, Image, ScrollView, StatusBar, StyleSheet, Text, Touc
 import React, {useState,useEffect} from 'react'
 import { ScreensName, InsideRouteScreenProps, RootRouteScreenProps} from '@src/routes/types'
 import { useRequest } from 'ahooks';
-import { HotelByLocationApi } from '@src/services/api/hotelApi';
+import { HotelByLocationApi } from '@src/services/api/HotelApi';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 const RoomOfLocationScreen: React.FC<
@@ -23,7 +23,7 @@ InsideRouteScreenProps<ScreensName.RoomOfLocationScreen>> = () => {
 
 
   return (
-    <View style={{}}>
+  <View style={{}}>
       {/* Header */}
       <StatusBar
         animated={true}

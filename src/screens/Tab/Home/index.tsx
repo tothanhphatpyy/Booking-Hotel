@@ -5,10 +5,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import { useUserInfoStateValue } from '@src/atom/user';
 import i18n from '@src/ultis/i18n';
-import { listLocationApi } from '@src/services/api/locationApi';
-import { HotelByLocationApi } from '@src/services/api/hotelApi';
+import { listLocationApi } from '@src/services/api/LocationApi';
+import { HotelByLocationApi } from '@src/services/api/HotelApi';
 import { useRequest } from 'ahooks';
 import { HomeRouteScreenProps, ScreensName } from '@src/routes/types';
+import {BASE_URL_APP} from '@env';
+import { addFavoriteRoomApi, deleteFavoriteRoomApi, listFavoriteRoomApi } from '@src/services/api/FavoriteRoomAPI';
 
 
 const HomeScreen: React.FC<
@@ -26,57 +28,82 @@ HomeRouteScreenProps<ScreensName.HomeScreen>
   const { data : dataLocation , loading: loadingLocation} = useRequest(async () => 
   listLocationApi(),{ debounceWait: 300 }
   );
+
   const { loading: loadingRoom, runAsync} = useRequest(async () => 
   HotelByLocationApi(locationEvent),{ debounceWait: 300, manual: true });
+
+  const { runAsync: getRoomFavorite} = useRequest(async () => 
+  listFavoriteRoomApi(userInfo.id),{ debounceWait: 300, manual: true });
 
   
   useEffect(() => {
     const fetchData = async () =>{
       await runAsync().then((res: any) => {
         setListRoomSuggest(res);
+        renderRoomFavorite();
       }).catch((error) => {
         console.log(error);
       })
     }
+
     fetchData();
   }, []);
+
+  const renderRoomFavorite = async() => {
+    await getRoomFavorite().then((res: any) => {
+      let listRoom : any = [];
+      res.map((item) => {
+        listRoom.push(item._id)
+      })
+      setListRoomFavourite(listRoom);
+    }).catch((error) => {
+      console.log(error);
+    })
+  }
 
   const renderHotel = async (idLocation: string) => {
     setLocationEvent(idLocation);
     await runAsync().then((res: any) => {
       setListRoomSuggest(res);
+      renderRoomFavorite();
     }).catch((error) => {
       console.log(error);
     })
-}
+
     
-  /* const setRoomFavourite = async(nameRoom) => {
-    const listRoom = JSON.parse(await AsyncStorage.getItem('listRoomFavourite'))
-    if(listRoom){
-      let index = listRoom.findIndex(e => e == nameRoom);
-      if(index !== -1){  //Có vị trí của index
-        listRoom.splice(index, 1);
-        if(listRoom.length > 0){
-          setListRoomFavourite(listRoom);
-          await AsyncStorage.setItem('listRoomFavourite', JSON.stringify(listRoom));
-        }
-        else{
-          setListRoomFavourite([]);
-          await AsyncStorage.setItem('listRoomFavourite', JSON.stringify(listRoom));
-        }
+  }
+  const setRoomFavourite = async (hotel_id : string) => {
+    
+    let checkIndex = listRoomFavourite.indexOf(hotel_id);
+    let newArray = [...listRoomFavourite];
+    if (checkIndex !== -1){
+      listRoomFavourite.splice(checkIndex, 1);
+      newArray = [...listRoomFavourite];
+      setListRoomFavourite(newArray);
+      try {
+        const {data : res} = await deleteFavoriteRoomApi({
+          hotel : hotel_id, 
+          user : userInfo.id
+        });
+      } catch (error) {
+        console.error(error.message);
       } 
-      else {
-        listRoom.unshift(nameRoom);
-        setListRoomFavourite(listRoom);
-        await AsyncStorage.setItem('listRoomFavourite', JSON.stringify(listRoom));
-      }
+      
     }
-    else {
-      const listNameroomFavourite = [nameRoom];
-      setListRoomFavourite(listNameroomFavourite);
-      await AsyncStorage.setItem('listRoomFavourite', JSON.stringify(listNameroomFavourite));
+    else{
+      newArray.push(hotel_id);
+      setListRoomFavourite(newArray);
+      try {
+        const {data : res} = await addFavoriteRoomApi({
+          hotel : hotel_id, 
+          user : userInfo.id
+        });
+      } catch (error) {
+        console.error(error.message);
+      } 
     }
-  } */
+  }
+ 
   const listVoucher =[
     {
       name: 'Momo',
@@ -126,13 +153,15 @@ HomeRouteScreenProps<ScreensName.HomeScreen>
         animated={true}
         backgroundColor="black" />
       <ScrollView style={styles.scrollView}>
-        <Image
-          className='object-contain h-20 w-20'
-          source = {require('@src/assets/images/app/logo.png')}
-        />
-        <Text className='text-[#FF8C00] font-bold text-xl ml-3 -mt-2'>
-        {i18n.t('app_name')}
-        </Text>
+        <View className='flex flex-row items-center -ml-2 mt-1'>
+          <Image
+            className='object-contain h-16 w-16'
+            source = {require('@src/assets/images/app/logo.png')}
+          />
+          <Text className='text-[#FF8C00] font-bold text-xl'>
+          {i18n.t('app_name')}
+          </Text>
+        </View>
         <Text style={styles.textAnswer}>Bạn muốn đi đâu, {setNameUser.current[setNameUser.current.length -1]} ?</Text>
       
         <TouchableOpacity style={styles.search} onPress={() => navigate('AppScreen', {screen : 'FindInput', params: {listLocation}})}>
@@ -242,7 +271,7 @@ HomeRouteScreenProps<ScreensName.HomeScreen>
               <Image 
                   style={{resizeMode: 'contain', height: 200, width: 310, borderTopLeftRadius: 10,borderTopRightRadius: 10 }}
                   source={{uri : item.image}} />
-              <View style={{ marginLeft: 20}}>
+              <View style={{ marginLeft: 5}}>
                 <Text style={{marginTop: 8,fontWeight: 'bold', color: 'black', fontSize: 17}}>{item.title}</Text>
                 <Text style={{marginTop: 2,color: '#484848', maxWidth: 280}}>{item.note}</Text>
               </View>
@@ -264,19 +293,18 @@ HomeRouteScreenProps<ScreensName.HomeScreen>
             horizontal
             showsHorizontalScrollIndicator={false}>
             {dataLocation?.map((item, index) => 
-              <TouchableHighlight key={index}>
+              <TouchableOpacity key={index} disabled={index == colorEvent? true : false} onPress={() => {
+                setColorEvent(index);
+                renderHotel(item._id);          
+               }}>
               <Text 
                 style={{flex: 1, marginRight: 20, borderWidth: 0.5, borderColor: 'gray', fontWeight: 'bold', color: index == colorEvent ? 'white'  : 'black',
                         backgroundColor: index == colorEvent ? 'orange'  : 'white', paddingHorizontal: 15, paddingVertical: 3, textAlign: 'center', fontSize: 13,
-                        borderRadius: 15}}
-                        onPress={() => {
-                          setColorEvent(index);
-                          renderHotel(item._id);          
-                         }}
+                        borderRadius: 15, }}
                        >
                 {item.name}
               </Text>
-              </TouchableHighlight>   
+              </TouchableOpacity>   
             )}  
           </ScrollView>
 
@@ -294,31 +322,30 @@ HomeRouteScreenProps<ScreensName.HomeScreen>
                   <TouchableOpacity 
                     style={{marginTop: 20, width: '45%'}}
                     key={index}
-                    onPress={() => navigate('AppScreen', {screen: 'Thông tin phòng', params: {idRoomSuggest: item._id}})}
+                    onPress={() => navigate('InsideRoute', {screen : ScreensName.RoomInfoScreen, params: {idRoomSuggest : item._id}})}
                     >              
                       <Image style={{ height: 110, width: '100%', resizeMode: 'contain', borderRadius: 7}} 
                               source= {{uri: `${item.img}`}} />  
 
-                        {(listRoomFavourite.length !== 0) ?
                         <TouchableOpacity style={{position: 'absolute', right: 12, top: 10}}
-                                          onPress={() => setRoomFavourite(item.nameRoom)}>
-                          {listRoomFavourite.map((pre, key) =>
-                          {return pre == item.nameRoom ? 
-                            <Image key={key} style={{resizeMode:'contain', height: 30, width: 30, position: 'absolute', right: -1, top: -1}} 
-                                    source={{uri : 'https://i.imgur.com/y9NnpkW.png'}} />
-                            :
-                            <Image key={key} style={{resizeMode:'contain' ,height: 27, width: 27, position: 'absolute', right: 0, top: 0}}
-                                    source={{uri: 'https://i.imgur.com/7pYW2IM.png'}} />
-                          }   
+                                          onPress={() => setRoomFavourite(item._id)}>
+                          
+                        {listRoomFavourite?.map((pre, key) =>
+                          <Image key={key} style={{resizeMode:'contain' ,height: 30, width: 30, position: 'absolute', right: 0, top: 0}}
+                                    source={{ uri: pre == item._id ? 'https://i.imgur.com/FQWenLd.png' : 'https://i.imgur.com/f4EgdYH.png'}} /> 
                           )}
-                        </TouchableOpacity>
-                        : 
-                        <View style={{position: 'absolute',right: 12, top: 10,}}>
-                          <TouchableOpacity onPress={() => setRoomFavourite(item.nameRoom)}>
-                          <Image style={{resizeMode:'contain' ,height: 27, width: 27, }} source={{uri: 'https://i.imgur.com/yCxMJY0.png'}} /> 
+                        {listRoomFavourite.length == 0 &&
+                          <View style={{position: 'absolute',right: 0, top: 0,}}>
+                          <TouchableOpacity onPress={() => setRoomFavourite(item._id)}>
+                          <Image style={{resizeMode:'contain', height: 30, width: 30}} 
+                                  source={{uri : 'https://i.imgur.com/7pYW2IM.png'}} />
                           </TouchableOpacity>
-                        </View> 
+                        </View>
                         }
+                      
+                        
+                        </TouchableOpacity>
+                        
                           
                       <View style={{ marginTop: 5,width: '100%'}}> 
                         <Text numberOfLines={1} style={{fontWeight: 'bold', fontSize: 10, color:'gray'}}>{item.type}</Text>
@@ -373,7 +400,7 @@ HomeRouteScreenProps<ScreensName.HomeScreen>
             </View>
             )}
           </View>
-          <View style={{height: 200}}></View>
+          <View style={{height: 50}}></View>
         </View>
       </ScrollView>
     </View>
@@ -409,7 +436,7 @@ const styles = StyleSheet.create({
     search: {
       flexDirection: 'row',
       alignItems: 'center',
-      width: '90%',
+      width: '95%',
       borderColor: 'gray',
       shadowColor: "gray",
       shadowOffset: {
@@ -420,6 +447,7 @@ const styles = StyleSheet.create({
       shadowRadius: 1.22,
 
       elevation: 1.5,
+      marginTop: 10
     },
 
     imgIc_search: {

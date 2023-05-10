@@ -16,7 +16,7 @@ const windowHeight = Dimensions.get('window').height;
 const OderScreen: React.FC<
   OderRouteScreenProps<ScreensName.OderScreen>> = () => {
 
-  const [description, setDescription] = useState(true);
+  const [description, setDescription] = useState(false);
   const [modalAccess, setModalAccess] = useState(false);
 
   const userInfo = useUserInfoStateValue();
