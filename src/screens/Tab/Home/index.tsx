@@ -9,20 +9,23 @@ import { listLocationApi } from '@src/services/api/LocationApi';
 import { HotelByLocationApi } from '@src/services/api/HotelApi';
 import { useRequest } from 'ahooks';
 import { HomeRouteScreenProps, ScreensName } from '@src/routes/types';
-import {BASE_URL_APP} from '@env';
 import { addFavoriteRoomApi, deleteFavoriteRoomApi, listFavoriteRoomApi } from '@src/services/api/FavoriteRoomAPI';
+import { useFavoriteListState } from '@src/atom/favorite';
+import { useFavoriteHomeListStateValue } from '@src/atom/favorite_home';
 
 
 const HomeScreen: React.FC<
 HomeRouteScreenProps<ScreensName.HomeScreen>
 > = () => {
   const { navigate }: any = useNavigation();
-  const [colorEvent, setColorEvent] = useState(6);
+  const [colorEvent, setColorEvent] = useState(2);
   const [locationEvent, setLocationEvent] = useState('62bc561974566b1417c880e2');
   const [listRoomSuggest, setListRoomSuggest] = useState([]);
   const [listRoomFavourite, setListRoomFavourite] = useState([]);
   
   const userInfo = useUserInfoStateValue();
+  const [loadingFavorite, setLoadingFavorite] = useFavoriteListState();
+  const loadingFavoriteHome = useFavoriteHomeListStateValue()
   const setNameUser = useRef(userInfo.name.split(" "));
 
   const { data : dataLocation , loading: loadingLocation} = useRequest(async () => 
@@ -45,9 +48,8 @@ HomeRouteScreenProps<ScreensName.HomeScreen>
         console.log(error);
       })
     }
-
     fetchData();
-  }, []);
+  }, [loadingFavoriteHome]);
 
   const renderRoomFavorite = async() => {
     await getRoomFavorite().then((res: any) => {
@@ -85,6 +87,9 @@ HomeRouteScreenProps<ScreensName.HomeScreen>
           hotel : hotel_id, 
           user : userInfo.id
         });
+        setLoadingFavorite(loadingFavorite => ({...loadingFavorite, 
+          loading: !loadingFavorite.loading,         
+        }))
       } catch (error) {
         console.error(error.message);
       } 
@@ -98,6 +103,9 @@ HomeRouteScreenProps<ScreensName.HomeScreen>
           hotel : hotel_id, 
           user : userInfo.id
         });
+        setLoadingFavorite(loadingFavorite => ({...loadingFavorite, 
+          loading: !loadingFavorite.loading,         
+        }))
       } catch (error) {
         console.error(error.message);
       } 

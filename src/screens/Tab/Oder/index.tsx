@@ -33,7 +33,6 @@ const OderScreen: React.FC<
 
   useEffect(() => {
     runAsync();
-    console.log(loadingOder);
   }, [loadingOder]);
 
   return (

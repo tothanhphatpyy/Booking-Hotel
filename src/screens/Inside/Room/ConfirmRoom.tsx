@@ -113,33 +113,6 @@ const ConfirmRoomScreen: React.FC<
     }).catch((error) => {
       console.log(error);
     })
-    /* try {
-      const {data : response} = await axios.post(`${BASE_URL}/add-oder`,{
-        totalPrice : totalPrice(), 
-        dateOder : `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`, 
-        dateReturn: `${dateReturn.getFullYear()}-${dateReturn.getMonth()+1}-${dateReturn.getDate()}`,  
-        status_payment : 0, 
-        status_confirm: 0, 
-        hotel : idRoomOder, 
-        user: userInfo._id,
-      })
-      let roomOder = {...response.data, getDay, getDayReturn, numberOfPeople, numberOfChildren, infoRoomOder };
-      AsyncStorage.getItem('historyOder', (err, result) => {
-        if (result !== null) {
-          const listRoomOder = JSON.parse(result); 
-          listRoomOder.unshift(roomOder);
-          AsyncStorage.setItem('historyOder', JSON.stringify(listRoomOder));
-        } else {
-          const listRoomOder = [roomOder];
-          AsyncStorage.setItem('historyOder', JSON.stringify(listRoomOder));
-        };
-        loadData();
-      });
-      
-
-    } catch (error) {
-      console.error(error.message);
-    } */
   }
 
   const getDay = changeDay(date.getDay());

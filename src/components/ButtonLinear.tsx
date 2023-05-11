@@ -17,6 +17,21 @@ const ButtonLinear: FunctionComponent<LoadingProps> = ({text}) => {
   )
 }
 
-export default ButtonLinear
+const ButtonConfirmLinear: FunctionComponent<LoadingProps> = ({text}) => {
+  return (
+    <LinearGradient
+      colors={['#F08080', '#FF6347', '#FF4500']}
+      start={{x: 0, y: 0.5}}
+      end={{x: 1, y: 1}}
+      
+      style={{alignItems: 'center', marginHorizontal: 20, paddingVertical: 12, 
+              paddingHorizontal: 20, borderRadius: 10, marginTop: 20,}}>
+      <Text style={{ fontSize: 15, fontWeight:'bold', color: 'white', paddingHorizontal: 20, paddingVertical: 0}}
+        >{text}</Text>
+    </LinearGradient> 
+  )
+}
+
+export  {ButtonLinear, ButtonConfirmLinear}
 
 const styles = StyleSheet.create({})
