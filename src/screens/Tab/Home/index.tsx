@@ -45,7 +45,7 @@ HomeRouteScreenProps<ScreensName.HomeScreen>
         setListRoomSuggest(res);
         renderRoomFavorite();
       }).catch((error) => {
-        console.log(error);
+        /* console.log(error); */
       })
     }
     fetchData();
@@ -248,7 +248,7 @@ HomeRouteScreenProps<ScreensName.HomeScreen>
         <View style={{marginTop: 30,}}>
           <View>
             <Text style={{fontWeight: 'bold', fontSize: 20, color: 'black'}}>Ưu đãi độc quyền</Text>
-            <Text style={{color: '#707070', marginTop: 5}}>Chỉ có tại Luxstay, hấp dẫn và hữu hạn, book ngay!</Text>
+            <Text style={{color: '#707070', marginTop: 5}}>Chỉ có tại Pstay, hấp dẫn và hữu hạn, book ngay!</Text>
           </View>
           <ScrollView
             style={{ marginTop : 20}}
@@ -266,7 +266,7 @@ HomeRouteScreenProps<ScreensName.HomeScreen>
 
         {/* Suggest */}
         <View style={{marginTop: 30,marginRight: 10,}}>
-          <Text style={{fontWeight: 'bold', fontSize: 20, color: 'black'}}>Gợi ý từ Luxstay</Text>
+          <Text style={{fontWeight: 'bold', fontSize: 20, color: 'black'}}>Gợi ý từ Pstay</Text>
           <ScrollView 
             horizontal
             style={{}}

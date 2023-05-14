@@ -9,8 +9,18 @@ interface LoadingProps {
 
 const ButtonLinear: FunctionComponent<LoadingProps> = ({text}) => {
   return (
-    <LinearGradient colors={LINEAR_COLORS} className='rounded-xl' start={{x: 0, y: 0.5}} end={{x: 1, y: 1}}>
+    <LinearGradient colors={LINEAR_COLORS} className='rounded-xl px-10' start={{x: 0, y: 0.5}} end={{x: 1, y: 1}}>
       <Text className='text-center py-3 text-lg text-white font-semibold'>
+        {text}
+      </Text>
+    </LinearGradient>
+  )
+}
+
+const ButtonLinearSizeSM: FunctionComponent<LoadingProps> = ({text}) => {
+  return (
+    <LinearGradient colors={LINEAR_COLORS} className='rounded-xl' start={{x: 0, y: 0.5}} end={{x: 1, y: 1}}>
+      <Text className='text-center py-3 text-sm text-white font-semibold'>
         {text}
       </Text>
     </LinearGradient>
@@ -32,6 +42,6 @@ const ButtonConfirmLinear: FunctionComponent<LoadingProps> = ({text}) => {
   )
 }
 
-export  {ButtonLinear, ButtonConfirmLinear}
+export  {ButtonLinear, ButtonConfirmLinear, ButtonLinearSizeSM}
 
 const styles = StyleSheet.create({})

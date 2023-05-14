@@ -4,6 +4,7 @@ import { ScreensName, InsideStackScreenParams } from '../types';
 import { RoomOfLocationScreen } from '@src/screens/Inside/Home_tab/RoomOfLocation';
 import { RoomInfoScreen } from '@src/screens/Inside/Room/RoomInfo';
 import { ConfirmRoomScreen } from '@src/screens/Inside/Room/ConfirmRoom';
+import { OwnerRoute } from './OwnerRoute';
 
 const InsideStack = createNativeStackNavigator<InsideStackScreenParams>();
 interface OnBoardingNavigatorProps {
@@ -27,6 +28,12 @@ const Stack: OnBoardingNavigatorProps[] = [
     component: ConfirmRoomScreen,
     title: 'Confirm Room',
   },
+  {
+    name: ScreensName.OwnerRoute,
+    component: OwnerRoute,
+    title: 'Owner',
+  },
+
 ]
 
 const InsideRoute = () => {

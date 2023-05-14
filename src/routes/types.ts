@@ -25,6 +25,12 @@ export enum ScreensName {
   RoomInfoScreen = 'RoomInfoScreen',
   ConfirmRoomScreen  = 'ConfirmRoomScreen',
 
+  //screens in BecomeOwner
+  BecomeOwnerScreen = 'BecomeOwner',
+  RegisHotelScreen = 'RegisHotelScreen',
+  //DashboardOwner
+  DashboardOwnerScreen = 'DashboardOwnerScreen',
+
   /* Route */
   //route in Auth
   OnBoardingRoute = 'OnBoardingRoute',
@@ -41,6 +47,7 @@ export enum ScreensName {
 
   //route in InsideApp
   InsideRoute = 'InsideRoute',
+  OwnerRoute = 'OwnerRoute',
   
 }
 
@@ -124,11 +131,21 @@ export type InsideStackScreenParams = {
 export type InsideRouteScreenProps<T extends keyof InsideStackScreenParams> =
   NativeStackScreenProps<InsideStackScreenParams, T>;
 
+  export type OwnerStackScreenParams = {
+    [ScreensName.BecomeOwnerScreen] : undefined;
+    [ScreensName.RegisHotelScreen] : undefined;
+    [ScreensName.DashboardOwnerScreen] : undefined;
+  }
+    
+  export type OwnerRouteScreenProps<T extends keyof OwnerStackScreenParams> =
+    NativeStackScreenProps<OwnerStackScreenParams, T>;
+
 export type RootStackScreensParams = {
   [ScreensName.OnBoardingRoute]: undefined;
   [ScreensName.AuthRoute]: undefined;
   [ScreensName.TabRoute]: undefined;
   [ScreensName.InsideRoute]: undefined;
+  [ScreensName.OwnerRoute]: undefined;
 };
 
 export type RootRouteScreenProps<T extends keyof RootStackScreensParams> =

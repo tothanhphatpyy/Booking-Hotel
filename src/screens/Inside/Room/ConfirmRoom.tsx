@@ -14,7 +14,7 @@ import { HotelById } from '@src/services/api/HotelApi'
 import { useUserInfoStateValue } from '@src/atom/user'
 import { oderApi } from '@src/services/api/OderApi';
 import Loading from '@src/components/Loading';
-import ButtonLinear from '@src/components/ButtonLinear';
+import {ButtonLinear} from '@src/components/ButtonLinear';
 import { useOderListState } from '@src/atom/oder';
 
 const windowWidth = Dimensions.get('window').width;
@@ -474,7 +474,7 @@ const ConfirmRoomScreen: React.FC<
             <Text style={{color: 'black', fontSize: 18, fontWeight: 'bold'}}>{totalPrice()}đ</Text>
         </View>
 
-        <TouchableOpacity onPress = {() => {submitOder()} } className='mt-10 rounded-xl mx-5'>
+        <TouchableOpacity onPress = {() => {submitOder()} } className='rounded-xl mx-5'>
           <ButtonLinear text={'Đặt phòng'}/>
         </TouchableOpacity>
         
