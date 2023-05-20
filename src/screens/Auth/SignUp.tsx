@@ -6,7 +6,7 @@ import * as Animatable from 'react-native-animatable';
 import { useRequest } from 'ahooks';
 import { loginApi } from '@src/services/api/UserApi';
 import Loading from '@src/components/Loading';
-import ButtonLinear from '@src/components/ButtonLinear';
+import {ButtonLinear} from '@src/components/ButtonLinear';
 import { useUserInfoState } from '@src/atom/user';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 

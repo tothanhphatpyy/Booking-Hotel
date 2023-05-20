@@ -4,6 +4,7 @@ import { ScreensName, OwnerStackScreenParams } from '../../types';
 import { BecomeOwnerScreen } from '@src/screens/Inside/Owner/BecomeOwner';
 import { RegisHotelScreen } from '@src/screens/Inside/Owner/RegisHotel';
 import { DashboardOwnerScreen } from '@src/screens/Inside/Owner/Dashboard';
+import { RegisInfoScreen } from '@src/screens/Inside/Owner/RegisInfo';
 
 const OwnerStack = createNativeStackNavigator<OwnerStackScreenParams>();
 interface OnBoardingNavigatorProps {
@@ -16,6 +17,11 @@ const Stack: OnBoardingNavigatorProps[] = [
     name: ScreensName.BecomeOwnerScreen,
     component: BecomeOwnerScreen,
     title: 'Become Owner',
+  },
+  {
+    name: ScreensName.RegisInfoScreen,
+    component: RegisInfoScreen,
+    title: 'Regis Info',
   },
   {
     name: ScreensName.RegisHotelScreen,

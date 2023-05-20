@@ -9,6 +9,7 @@ const USER_INFO = atom({
     email: '',
     role: '',
     status: '',
+    numberHotel: '',
   }, // default value (aka initial value)
 });
 
