@@ -1,16 +1,38 @@
-import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, StatusBar } from 'react-native'
+import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, StatusBar, Dimensions, TextInput } from 'react-native'
 import React, {useEffect, useState} from 'react'
 import { ScreensName, OwnerRouteScreenProps} from '@src/routes/types'
-import { Container } from '@src/components/Container';
-import * as Animatable from 'react-native-animatable';
+
 import i18n from '@src/ultis/i18n';
 import { useNavigation } from '@react-navigation/native';
 import { useUserInfoState } from '@src/atom/user';
 import { ButtonLinear } from '@src/components/ButtonLinear';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import { useRequest } from 'ahooks';
-import { listImgApi } from '@src/services/api/HotelApi';
 import axios from 'axios';
+import { StepRegisOwner } from '@src/components/StepRegisOwner';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+
+const windowWidth = Dimensions.get('window').width;
+
+
+const initialState = {
+  imgDetail0 : '',
+  imgDetail1 : '',
+  imgDetail2 : '',
+  imgDetail3 : '',
+
+  detailRoom : '',  //
+  detailRules: '',
+  priceMon_Fri: '',
+  priceWeb_Sun : '',
+  priceDiscount: '', //
+  
+  numberBedRoom : '',
+  numberBathRoom : '',
+  numberBed : '',
+  numberPeople : '',
+  
+}
 
 const RegisHotelScreen: React.FC<
   OwnerRouteScreenProps<ScreensName.RegisHotelScreen>> = () => {
@@ -18,6 +40,7 @@ const RegisHotelScreen: React.FC<
   const { navigate, goBack } : any = useNavigation();
   const [userInfo, setUserInfo] = useUserInfoState(); 
   const [uriImg, setUriImg] = useState('https://i.imgur.com/W7AJbjR.png');
+  const [numberOfPeople, setnumberOfPeople] = useState(1)
   
   const openLibrary = async() => {
     const options = {
@@ -118,11 +141,41 @@ const RegisHotelScreen: React.FC<
             source= {{uri: 'https://i.imgur.com/1RCGweh.png'}}
         />
         </TouchableOpacity>
-        <Text style={{color: 'black', fontWeight: '500', marginLeft: 10, fontSize: 15}}>Đăng ký thông tin chỗ ở</Text>
+        <Text style={{color: 'black', fontWeight: '500', marginLeft: 10, fontSize: 15}}>Đăng ký thông tin phòng</Text>
       </View>
-      <ScrollView style={{ /* backgroundColor: '#F9F9F9', */ marginHorizontal: 15}}>
-        <Text style={{marginTop: 30, fontWeight: 'bold', color: 'black',fontSize: 18}}>Chủ nhà</Text>
-        <View style={{marginTop: 10, backgroundColor: '#F7F7F7', borderRadius: 10,
+      <ScrollView>
+        <View className='mt-2'>
+          <StepRegisOwner step={2}/>
+          <Text style={{marginTop: 30, fontWeight: 'bold', color: 'black',fontSize: 18, marginLeft: 10}}>Thông tin phòng</Text>
+          <View className={`flex-row ml-2.5 w-full my-2`}>
+            <Text className='text-[14px] text-orange-500'>*</Text>
+            <Text className='text-[14px] text-black'>Tải lên những bức ảnh trong căn phòng hoàn hảo của bạn 
+            <Text className='text-[14px] text-black'> (Chụp ảnh tổng quan, giường ngủ, nhà vệ sinh...) </Text>
+            </Text>
+            
+          </View>
+          <TouchableOpacity className='w-full h-52 mt-1'>
+            <Image source={{uri: 'https://i.imgur.com/UeRC1pK.png'}}
+                  style={{resizeMode: "cover", width: '100%', height: '100%'}}
+            />
+          </TouchableOpacity>
+          <View className='flex-row space-x-0.5 mt-0.5 h-32'>
+            <TouchableOpacity className='w-4/12 h-full'>
+              <Image source={{uri: 'https://i.imgur.com/UeRC1pK.png'}}
+              style={{resizeMode: "cover", width: '100%', height: '100%'}} />
+            </TouchableOpacity>
+            <TouchableOpacity className='w-4/12 h-full'>
+              <Image source={{uri: 'https://i.imgur.com/UeRC1pK.png'}}
+              style={{resizeMode: "cover", width: '100%', height: '100%'}} />
+            </TouchableOpacity>
+            <TouchableOpacity className='w-4/12 h-full'>
+              <Image source={{uri: 'https://i.imgur.com/UeRC1pK.png'}}
+              style={{resizeMode: "cover", width: '100%', height: '100%'}} />
+            </TouchableOpacity>
+          </View>
+        </View>
+        <Text style={{marginTop: 20, fontWeight: 'bold', color: 'black',fontSize: 18, marginLeft: 10}}>Thông tin bổ sung</Text>
+        <View style={{marginTop: 15, backgroundColor: '#F7F7F7', borderRadius: 10, marginHorizontal: 15,
                         shadowColor: "#696969",
                         shadowOffset: {
                             width: 0,
@@ -130,39 +183,117 @@ const RegisHotelScreen: React.FC<
                         },
                         shadowOpacity: 0.29,
                         shadowRadius: 4.65,
-                        elevation: 7,                                 
-                    }}>
-          <Text style={{marginTop: 15, marginLeft: 20,fontWeight: '700', fontSize: 16.5, color: 'black'}}>
-            {userInfo.name}
-          </Text> 
-          <Text className='w-16 mt-1' style={{marginLeft: 20,fontSize: 13, fontWeight: '400',
-                      paddingHorizontal: 10, paddingVertical: 2, backgroundColor: '#E8E8E8', borderRadius: 10, color: '#606060'}}>
-              3 chỗ ở</Text>    
-          <View style={{marginTop: 10, marginLeft: 20, flexDirection: 'row'}}>
-              <Text style={{fontSize: 14, color: '#606060'}}>Số điện thoại: </Text>
-              <Text style={{fontSize: 14, fontWeight: 'bold', color: 'black'}}>{userInfo.username}</Text>
-          </View> 
-          <View style={{marginTop: 10, marginLeft: 20, flexDirection: 'row'}}>
-              <Text style={{fontSize: 14, color: '#606060'}}>Email: </Text>
-              <Text style={{fontSize: 14, fontWeight: 'bold', color: 'black'}}>{userInfo.email}</Text>
-          </View> 
-          <View style={{marginTop: 20, flexDirection: 'row', marginLeft: 20}}>
-              <Text style={{fontSize: 14, color: '#606060'}}>Phản hồi: </Text>
-              <Text style={{fontSize: 14, fontWeight: 'bold', color: 'black'}}>100% </Text>
-              <Text style={{fontSize: 14, marginLeft: 20, color: '#606060'}}>Hủy phòng </Text>
-              <Text style={{fontSize: 14, fontWeight: 'bold', color: 'black'}}>0% </Text>
+                        elevation: 7,    }}>
+          <View style={{flexDirection: 'row',paddingVertical: 20, }}>
+            <Text style={{color: 'red', marginLeft: 10}}>*</Text>
+            <Text style={{color: 'black', fontWeight: 'bold', fontSize: 15}}>Chi tiết :</Text>
+            <View style={{position: 'absolute', left: 150, top: 6, height: 100, borderBottomColor: '#DCDCDC', borderBottomWidth: 0.5,}}>
+              <TextInput
+                multiline
+                style={{ color: '#303030', width: windowWidth - 200, }}
+                placeholderTextColor={'gray'}
+                placeholder="Nhập gì đó.."
+                
+              />
+            </View>
           </View>
-          <TouchableOpacity style={{marginTop: 25, backgroundColor: '#E8E8E8',paddingVertical: 10, alignItems: 'center', marginHorizontal: 30, borderRadius: 15, marginBottom: 20}}>  
-              <Text style={{ fontWeight: '600', color: 'black', fontSize: 14,
-                          }}>Thay đổi thông tin cá nhân
-              </Text>
-          </TouchableOpacity>
-        </View>
-        <Image source={{uri : uriImg}} className='h-60 w-60'/>
-        
-        <TouchableOpacity onPress = {() => openLibrary() } className='rounded-xl mt-10 mx-6'>
+          <View style={{flexDirection: 'row',paddingVertical: 25, borderBottomWidth: 0.5, borderBottomColor: '#DCDCDC',  marginTop: 50}}>
+            <Text style={{color: 'red', marginLeft: 10, marginTop: -5}}>*</Text>
+            <Text style={{color: 'black', fontWeight: 'bold', fontSize: 15, marginTop: -5}}>Giá phòng (ngày)</Text>
+            <Text style={{position: 'absolute', left: 15, top: 40, color: 'black', fontSize: 14}}>Thứ 2 đến thứ 6</Text>
+            <View style={{position: 'absolute', left: 150, top: 6, }}>
+              <TextInput
+                style={{ color: '#303030', width: windowWidth - 200}}
+                placeholderTextColor={'gray'}
+                placeholder="vd: 850.000 vnđ / ngày"
+                keyboardType='numeric'
+              />
+            </View>
+          </View>
+          <View style={{flexDirection: 'row',paddingVertical: 25, borderBottomWidth: 0.5, borderBottomColor: '#DCDCDC', paddingBottom: 35}}>
+            <Text style={{color: 'red', marginLeft: 10, marginTop: -5}}>*</Text>
+            <Text style={{color: 'black', fontWeight: 'bold', fontSize: 15, marginTop: -5}}>Giá phòng (ngày)</Text>
+            <Text style={{position: 'absolute', left: 15, top: 40, color: 'black', fontSize: 14}}>Thứ 7, chủ nhật</Text>
+            <View style={{position: 'absolute', left: 150, top: 6, }}>
+              <TextInput
+                style={{ color: '#303030', width: windowWidth - 200}}
+                placeholderTextColor={'gray'}
+                placeholder="vd: 850.000 vnđ / ngày"
+                keyboardType='numeric'
+              />
+            </View>
+          </View>
+          
+          <View style={{flexDirection: 'row',paddingVertical: 20, justifyContent: 'space-between', marginHorizontal: 10, alignItems: 'center', marginTop: -10}}>
+          <Text style={{color: 'black', fontWeight: 'bold', fontSize: 15}}>Số lượng phòng</Text>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <FontAwesome name={'minus'} color={numberOfPeople >1? 'orange' : 'gray'} size={15} style={{marginLeft: 15, padding: 10, marginTop: 2}}
+                          onPress={() => checkNumberPeople(numberOfPeople)} 
+              />
+              <Text style={{ color:'black', fontSize: 16, marginLeft: 5}}>{numberOfPeople}</Text>
+              <FontAwesome name={'plus'} color={'orange'} size={15} style={{marginLeft: 5, padding: 10, marginTop: 2}}
+                    onPress={() => setnumberOfPeople(numberOfPeople +1)}
+              />
+            </View>
+          </View>
+          <View style={{flexDirection: 'row',paddingVertical: 20, paddingBottom: 30, justifyContent: 'space-between', marginHorizontal: 10, alignItems: 'center', marginTop: -35}}>
+          <Text style={{color: 'black', fontWeight: 'bold', fontSize: 15}}>Số người tối đa</Text>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <FontAwesome name={'minus'} color={numberOfPeople >1? 'orange' : 'gray'} size={15} style={{marginLeft: 15, padding: 10, marginTop: 2}}
+                          onPress={() => checkNumberPeople(numberOfPeople)} 
+              />
+              <Text style={{ color:'black', fontSize: 16, marginLeft: 5}}>{numberOfPeople}</Text>
+              <FontAwesome name={'plus'} color={'orange'} size={15} style={{marginLeft: 5, padding: 10, marginTop: 2}}
+                    onPress={() => setnumberOfPeople(numberOfPeople +1)}
+              />
+            </View>
+          </View>
+          <View style={{marginTop: -15, backgroundColor:'#F3F3F3', borderRadius: 5, marginHorizontal: 15}}>
+            <Text style={{padding : 10, color: 'gray', fontSize: 13}}>Các thông tin bên dưới là thông tin trong 1 phòng hoặc chỗ ở của chủ sở hữu.</Text>
+          </View>
+          <View style={{flexDirection: 'row',paddingVertical: 20, borderBottomWidth: 0.5, borderBottomColor: '#DCDCDC', justifyContent: 'space-between', marginHorizontal: 15}}>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Text style={{color:'black', fontSize: 15}}>Số giường</Text>
+              <FontAwesome name={'minus'} color={numberOfPeople >1? 'orange' : 'gray'} size={15} style={{padding: 10, marginTop: 2}}
+                          onPress={() => checkNumberPeople(numberOfPeople)} 
+              />
+              <Text style={{ color:'black', fontSize: 16}}>{numberOfPeople}</Text>
+              <FontAwesome name={'plus'} color={'orange'} size={15} style={{padding: 10, marginTop: 2}}
+                    onPress={() => setnumberOfPeople(numberOfPeople +1)}
+              />
+            </View>
+            <View>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Text style={{color:'black', fontSize: 15}}>Số phòng tắm</Text>
+                <FontAwesome name={'minus'} color={numberOfPeople >1? 'orange' : 'gray'} size={15} style={{padding: 10, marginTop: 2}}
+                            onPress={() => checkNumberPeople(numberOfPeople)} 
+                />
+                <Text style={{ color:'black', fontSize: 16}}>{numberOfPeople}</Text>
+                <FontAwesome name={'plus'} color={'orange'} size={15} style={{padding: 10, marginTop: 2}}
+                      onPress={() => setnumberOfPeople(numberOfPeople +1)}
+                />
+              </View>
+            </View>
+          </View>
+          <View style={{ marginTop: 20, marginHorizontal: 10}}>
+          <Text style={{color: 'black', fontWeight: 'bold', fontSize: 15}}>Các quy định dành cho khách khi ở :</Text>             
+          <View style={{height: 150, borderBottomColor: '#DCDCDC', borderWidth: 0.5, borderRadius: 10, marginTop: 20}}>
+              <TextInput
+                multiline
+                style={{ color: '#303030', width: windowWidth - 200, paddingBottom: 10}}
+                placeholderTextColor={'gray'}
+                placeholder="Nhập gì đó.."
+                
+              />
+          </View>
+          </View>
+          <TouchableOpacity onPress = {() => openLibrary() } className='rounded-xl mt-10 mx-6'>
             <ButtonLinear text={'Xác nhận thông tin'}/>
           </TouchableOpacity>
+          <View style={{height: 100}}></View>
+        </View> 
+        
+        
       </ScrollView>
     </View>
   )

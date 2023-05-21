@@ -8,6 +8,7 @@ import { ButtonLinear } from '@src/components/ButtonLinear';
 import Province from '@src/components/Province';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { useRegisHotelInfoState } from '@src/atom/regis_hotel';
+import { StepRegisOwner } from '@src/components/StepRegisOwner';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -29,9 +30,9 @@ const RegisInfoScreen: React.FC<
       <StatusBar
         animated={true}
         backgroundColor="black" />
-      <ScrollView style={{ marginHorizontal: 20}}>
+      <ScrollView style={{}}>
         <View style={{marginTop: 10, height: 50, backgroundColor: '#E6E6E6', alignItems: 'center', 
-                      flexDirection: 'row', borderRadius: 5}}>
+                      flexDirection: 'row', borderRadius: 5, marginHorizontal: 20}}>
           <TouchableOpacity 
             style={{padding: 10}}
             onPress={() => goBack()}>
@@ -43,8 +44,9 @@ const RegisInfoScreen: React.FC<
           <Text style={{color: 'black', fontWeight: '500', marginLeft: 10, fontSize: 15}}>Đăng ký thông tin</Text>
           
         </View>
-        <Text style={{marginTop: 30, fontWeight: 'bold', color: 'black',fontSize: 18}}>Chủ nhà</Text>
-        <View style={{marginTop: 15, backgroundColor: '#F7F7F7', borderRadius: 10,
+        <StepRegisOwner step={1}/>
+        <Text style={{marginTop: 30, fontWeight: 'bold', color: 'black',fontSize: 18, marginHorizontal: 15}}>Chủ nhà</Text>
+        <View style={{marginTop: 15, backgroundColor: '#F7F7F7', borderRadius: 10, marginHorizontal: 15,
                         shadowColor: "#696969",
                         shadowOffset: {
                             width: 0,
@@ -82,8 +84,8 @@ const RegisInfoScreen: React.FC<
               </Text>
           </TouchableOpacity>
         </View>
-        <Text style={{marginTop: 25, fontWeight: 'bold', color: 'black',fontSize: 18}}>Thông tin chỗ ở</Text>
-        <View style={{marginTop: 15, backgroundColor: '#F7F7F7', borderRadius: 10,
+        <Text style={{marginTop: 25, fontWeight: 'bold', color: 'black',fontSize: 18, marginHorizontal: 15}}>Thông tin chỗ ở</Text>
+        <View style={{marginTop: 15, backgroundColor: '#F7F7F7', borderRadius: 10, marginHorizontal: 15,
                         shadowColor: "#696969",
                         shadowOffset: {
                             width: 0,
@@ -126,7 +128,7 @@ const RegisInfoScreen: React.FC<
         <View style={{marginTop: 10, height: 5, backgroundColor: '#F3F3F3'}}></View>
         <View style={{marginTop: 10,}}>
           <View style={{alignItems: 'center', flexDirection: 'row'}}>
-            <Text style={{color: 'black', fontWeight: 'bold', fontSize: 18}}>Mã giới thiệu</Text>
+            <Text style={{color: 'black', fontWeight: 'bold', fontSize: 18, marginHorizontal: 15}}>Mã giới thiệu</Text>
             <View style={{position: 'absolute', right: 10}}>
             <Switch
                 trackColor={{ false: "#767577", true: "orange" }}
@@ -147,7 +149,7 @@ const RegisInfoScreen: React.FC<
           <View style={{marginTop: 10, marginLeft: -20, height: 5, backgroundColor: '#F3F3F3'}}></View>
         </View> 
        
-        <TouchableOpacity onPress = {() => navigate('InsideRoute', {screen : ScreensName.OwnerRoute, params: {screen: ScreensName.RegisHotelScreen}}) } className='rounded-xl mt-10'>
+        <TouchableOpacity onPress = {() => navigate('InsideRoute', {screen : ScreensName.OwnerRoute, params: {screen: ScreensName.RegisHotelScreen}}) } className='rounded-xl mt-10 mx-5'>
             <ButtonLinear text={'Đăng ký thông tin'}/>
         </TouchableOpacity>
         <View style={{height: 30}}></View>

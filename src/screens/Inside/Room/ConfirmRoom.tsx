@@ -169,11 +169,6 @@ const ConfirmRoomScreen: React.FC<
               </TouchableOpacity>
               <Text style={{color: 'black', fontWeight: '500', fontSize: 18}}>Thông tin khách hàng</Text>
           </View>
-         {/*  <View className='-mt-3 flex flex-row justify-end mr-5 items-center bg-purple-200'>
-            <Text className='text-white bg-orange-400 p-1 px-2 rounded-full'>1</Text>
-            <Text className='text-orange-400 ml-1 font-extrabold text-xs'>Booking</Text>
-            <Text className='text-gray-500 ml-3'>━━</Text>
-          </View> */}
           <View style={{position: 'absolute', right: 20, top: 12}}>
                 <Image style={{ resizeMode: 'contain', width: 180, height:100 }} source={{uri: 'https://i.imgur.com/h0Ew1v2.png'}} />
             </View>
