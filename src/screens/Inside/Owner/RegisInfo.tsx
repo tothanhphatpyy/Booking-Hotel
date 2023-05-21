@@ -7,6 +7,7 @@ import { useUserInfoState } from '@src/atom/user';
 import { ButtonLinear } from '@src/components/ButtonLinear';
 import Province from '@src/components/Province';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { useRegisHotelInfoState } from '@src/atom/regis_hotel';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -15,12 +16,12 @@ const RegisInfoScreen: React.FC<
   
   const { navigate, goBack } : any = useNavigation();
   const [userInfo, setUserInfo] = useUserInfoState(); 
-  const [province, getProvince] = useState('');
-  const [district, getDistrict] = useState('');
+  const [regisHotelInfo, setRegisHotelInfo] = useRegisHotelInfoState();
 
   const toggleSwitch = () => sethideSwitch(previousState => !previousState);
   const [hideSwitch, sethideSwitch] = useState(false);
-
+  
+  console.log(regisHotelInfo);
 
   return (
     
@@ -126,7 +127,7 @@ const RegisInfoScreen: React.FC<
         <View style={{marginTop: 10,}}>
           <View style={{alignItems: 'center', flexDirection: 'row'}}>
             <Text style={{color: 'black', fontWeight: 'bold', fontSize: 18}}>Mã giới thiệu</Text>
-            <View style={{position: 'absolute', right: 30}}>
+            <View style={{position: 'absolute', right: 10}}>
             <Switch
                 trackColor={{ false: "#767577", true: "orange" }}
                 thumbColor={hideSwitch ? "#FF4500" : "#F3F3F3"}
@@ -146,7 +147,7 @@ const RegisInfoScreen: React.FC<
           <View style={{marginTop: 10, marginLeft: -20, height: 5, backgroundColor: '#F3F3F3'}}></View>
         </View> 
        
-        <TouchableOpacity onPress = {() => navigate('InsideRoute', {screen : ScreensName.OwnerRoute, params: {screen: ScreensName.RegisHotelScreen}}) } className='rounded-xl mt-10 mx-6'>
+        <TouchableOpacity onPress = {() => navigate('InsideRoute', {screen : ScreensName.OwnerRoute, params: {screen: ScreensName.RegisHotelScreen}}) } className='rounded-xl mt-10'>
             <ButtonLinear text={'Đăng ký thông tin'}/>
         </TouchableOpacity>
         <View style={{height: 30}}></View>

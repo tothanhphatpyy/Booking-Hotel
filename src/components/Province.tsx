@@ -1,28 +1,47 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {View, Text, SafeAreaView, StatusBar, Dimensions, StyleSheet, ScrollView} from 'react-native';
+import {View, Text, Dimensions, StyleSheet, ScrollView} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 const {width} = Dimensions.get('window');
 import SelectDropdown from 'react-native-select-dropdown';
 import axios from 'axios';
-
-export default Province = () => {
-  const [countries, setCountries] = useState([]);
-  const [cities, setCities] = useState(['Chọn tỉnh/ thành phố']);
-  const [wards, setWards] = useState(['Chọn thành phố, phường']);
+import { useSetRegisHotelInfoState } from '@src/atom/regis_hotel';
+ 
+export default Province = () => { 
+  const [countries, setCountries] = useState({listData: [], select: ''});
+  const [cities, setCities] = useState({listData: [], select: ''});
+  const [wards, setWards] = useState({listData: [], select: ''});
 
   const citiesDropdownRef = useRef();
+  const setRegisHotel = useSetRegisHotelInfoState();
 
   useEffect(() => {
     const fetchData = async () =>{
       const {data} = await axios.get('https://provinces.open-api.vn/api/?depth=2')
-      setCountries(data);
+      setCountries({listData: data, select: ''});
     }
     fetchData();
   }, []);
+  
   const handleDistrict = async(district) => {
     const {data} = await axios.get(`https://provinces.open-api.vn/api/d/${district.code}?depth=2`)
-    setWards(data.wards);
+    setWards({listData: data.wards, select: ''});
   }
+
+  const handleLocation = (nameWards) => {
+    let nameLocation = countries.select;
+    const indexOfFirst = nameLocation.indexOf('Tỉnh');
+    let location: string;
+    if(indexOfFirst == 0)
+      location = nameLocation.slice(5);
+    else 
+      location = nameLocation.slice(10);
+    setRegisHotel(data => ({...data,
+      location: location,
+      detailLocation: `${cities.select}, ${location}, Việt Nam`,
+      districtLocation: `${nameWards}, ${cities.select}, ${countries.select}, Việt Nam`
+    }))
+  }
+  
   return (
     <View style={styles.viewContainer}>
       <ScrollView
@@ -34,12 +53,15 @@ export default Province = () => {
           <Text style={{color: 'black', fontWeight: 'bold', fontSize: 14}}>Tỉnh/ thành phố :</Text>
           <View style={{position: 'absolute', left: 150, top: 6, }}>
           <SelectDropdown
-            data={countries}
+            data={countries.listData}
             onSelect={(selectedItem, index) => {
               citiesDropdownRef.current.reset();
-              setCities([]);
-              setWards([]);
-              setCities(selectedItem.districts);
+              setCountries(data => ({...data, 
+                select: selectedItem.name
+              }))
+              setCities({listData: [], select: ''});
+              setWards({listData: [], select: ''});
+              setCities({listData: selectedItem.districts, select: ''});
             }}
             defaultButtonText={'Chọn tỉnh/ thành phố'}
             buttonTextAfterSelection={(selectedItem, index) => {
@@ -74,9 +96,12 @@ export default Province = () => {
           <View style={{position: 'absolute', left: 150, top: 6, }}>
             <SelectDropdown
             ref={citiesDropdownRef}
-            data={cities}
+            data={cities.listData}
             onSelect={(selectedItem, index) => {
-              setWards([]);
+              setWards([{listData: [], select: ''}]);
+              setCities(data => ({...data, 
+                select: selectedItem.name
+              }))
               handleDistrict(selectedItem);
             }}
             defaultButtonText={'Chọn quận/ huyện'}
@@ -113,9 +138,10 @@ export default Province = () => {
           <View style={{position: 'absolute', left: 150, top: 6, }}>
             <SelectDropdown
             /* ref={citiesDropdownRef} */
-            data={wards}
+            data={wards.listData}
             onSelect={(selectedItem, index) => {
-              console.log(selectedItem);
+             
+              handleLocation(selectedItem.name);
             }}
             defaultButtonText={'Chọn phường/ xã'}
             buttonTextAfterSelection={(selectedItem, index) => {
