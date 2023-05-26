@@ -13,7 +13,7 @@ export const __DEV__ =
 
 /* console.log('🚀 BASE_URL_APP:', BASE_URL_APP); */
 export const instance = axios.create({
-  baseURL: 'http://192.168.1.5:3000',
+  baseURL: BASE_URL_APP,
   timeout: REQ_TIMEOUT,
 });
 

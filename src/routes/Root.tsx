@@ -7,6 +7,7 @@ import { TabRoute } from './TabRoute';
 import { InsideRoute } from './InsideRoute';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useUserInfoState } from '@src/atom/user';
+import { checkRole } from '@src/config/auth';
 
 const RootStack = createNativeStackNavigator<RootStackScreensParams>();
 
@@ -26,7 +27,7 @@ function Root() {
             username: user.username,
             name: user.name,
             email: user.email,
-            role: user.role,
+            role: checkRole(user.role),
             status: user.status,
           }))
         }

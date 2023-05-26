@@ -59,7 +59,7 @@ HomeRouteScreenProps<ScreensName.HomeScreen>
       })
       setListRoomFavourite(listRoom);
     }).catch((error) => {
-      console.log(error);
+      console.log('Chưa chọn phòng yêu thích nào');
     })
   }
 

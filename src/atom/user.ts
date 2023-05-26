@@ -8,8 +8,7 @@ const USER_INFO = atom({
     name: '',
     email: '',
     role: '',
-    status: '',
-    numberHotel: '',
+    status: 0,
   }, // default value (aka initial value)
 });
 

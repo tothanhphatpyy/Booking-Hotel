@@ -5,16 +5,35 @@ const REGIS_HOTEL_INFO = atom({
   default: {
     user : '', 
     location : '',
-    imageLocation: '',
+    imageLocation1: {
+      uri : 'https://i.imgur.com/UeRC1pK.png',
+      name: '',
+      type: '',
+    },
+    imageLocation2: {
+      uri : 'https://i.imgur.com/UeRC1pK.png',
+      name: '',
+      type: '',
+    },
+    imageLocation3: {
+      uri : 'https://i.imgur.com/UeRC1pK.png',
+      name: '',
+      type: '',
+    },
+    imageLocation4: {
+      uri : 'https://i.imgur.com/UeRC1pK.png',
+      name: '',
+      type: '',
+    },
     nameRoom : '', 
     type : '', 
     detailLocation : '', 
     districtLocation: '',
     typeRoom : '', 
-    numberBedRoom : '', 
-    numberBathRoom : '', 
-    numberBed : '', 
-    numberPeople : '', 
+    numberBedRoom : 1, 
+    numberBathRoom : 1, 
+    numberBed : 1, 
+    numberPeople : 1, 
     detailRoom : '', 
     priceMon_Fri : '', 
     priceWeb_Sun : '', 
@@ -28,7 +47,7 @@ export const useRegisHotelInfoState = () => {
   return useRecoilState(REGIS_HOTEL_INFO);
 };
 
-export const useRegisHotelInfolValue = () => {
+export const useRegisHotelInfoValue = () => {
   return useRecoilValue(REGIS_HOTEL_INFO);
 };
 

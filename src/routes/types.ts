@@ -29,6 +29,7 @@ export enum ScreensName {
   BecomeOwnerScreen = 'BecomeOwner',
   RegisHotelScreen = 'RegisHotelScreen',
   RegisInfoScreen = 'RegisInfoScreen',
+  RegisConfirmScreen = 'RegisConfirmScreen',
   //DashboardOwner
   DashboardOwnerScreen = 'DashboardOwnerScreen',
 
@@ -136,6 +137,7 @@ export type InsideRouteScreenProps<T extends keyof InsideStackScreenParams> =
     [ScreensName.BecomeOwnerScreen] : undefined;
     [ScreensName.RegisInfoScreen] : undefined;
     [ScreensName.RegisHotelScreen] : undefined;
+    [ScreensName.RegisConfirmScreen] : undefined;
     [ScreensName.DashboardOwnerScreen] : undefined;
   }
     

@@ -12,6 +12,9 @@ import { useNavigation } from '@react-navigation/native';
 const SettingScreen: React.FC<
   SettingRouteScreenProps<ScreensName.SettingScreen>> = () => {
 
+    const [userInfo, setUserInfo] = useUserInfoState();
+    const {navigate} : any = useNavigation();
+
     const listItem = [
       {
         key: 'evaluate',
@@ -47,12 +50,10 @@ const SettingScreen: React.FC<
         key: 'become_owner',
         img: 'https://i.imgur.com/WU5Fhd2.png',
         title: 'Trở thành chủ nhà',
-        detail: '3 chỗ ở',
+        detail: `${userInfo.role == 0 ? '0' : '1'} chỗ ở`,
       },
     ];
 
-    const [userInfo, setUserInfo] = useUserInfoState();
-    const {navigate} : any = useNavigation();
 
     const handleLogout =() =>{
       AsyncStorage.clear();

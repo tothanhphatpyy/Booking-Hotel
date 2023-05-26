@@ -17,12 +17,19 @@ const RegisInfoScreen: React.FC<
   
   const { navigate, goBack } : any = useNavigation();
   const [userInfo, setUserInfo] = useUserInfoState(); 
-  const [regisHotelInfo, setRegisHotelInfo] = useRegisHotelInfoState();
+  const [regisHotel, setRegisHotel] = useRegisHotelInfoState();
 
   const toggleSwitch = () => sethideSwitch(previousState => !previousState);
   const [hideSwitch, sethideSwitch] = useState(false);
+  const [districtHotel, setDistrictHotel] = useState('');
   
-  console.log(regisHotelInfo);
+
+  const handleRegisHotel = () => {
+    setRegisHotel({...regisHotel, districtLocation : districtHotel + ', ' + regisHotel.districtLocation});
+    navigate('InsideRoute', {screen : ScreensName.OwnerRoute, params: {screen: ScreensName.RegisHotelScreen}})
+  }
+
+  
 
   return (
     
@@ -102,7 +109,7 @@ const RegisInfoScreen: React.FC<
                 style={{ color: '#303030', width: windowWidth - 200}}
                 placeholderTextColor={'gray'}
                 placeholder="vd: Pstay Hotel & Homestay"
-                
+                onChangeText={text => (setRegisHotel({...regisHotel, nameRoom : text}))}
               />
             </View>
           </View>
@@ -114,18 +121,41 @@ const RegisInfoScreen: React.FC<
                 style={{ color: '#303030', width: windowWidth - 200}}
                 placeholderTextColor={'gray'}
                 placeholder="vd: hotel, homestay, biệt thự"
-               
+                onChangeText={text => (setRegisHotel({...regisHotel, typeRoom : text}))}
+              />
+            </View>
+          </View>
+          <View style={{flexDirection: 'row',paddingVertical: 20, borderBottomWidth: 0.5, borderBottomColor: '#DCDCDC',  }}>
+            <Text style={{color: 'red', marginLeft: 10}}>*</Text>
+            <Text style={{color: 'black', fontWeight: 'bold', fontSize: 14}}>Diện tích (m²) : </Text>
+            <View style={{position: 'absolute', left: 150, top: 6, }}>
+              <TextInput
+                style={{ color: '#303030', width: windowWidth - 200}}
+                placeholderTextColor={'gray'}
+                placeholder="vd: 30"
+                onChangeText={text => (setRegisHotel({...regisHotel, type: (regisHotel.typeRoom).toUpperCase() + text + 'm²'}))}        
               />
             </View>
           </View>
           <Text className='text-black font-semibold text-base ml-2.5 mt-5'>Địa chỉ</Text>
-          <View className='pb-3'>
+          <View className=''>
             <Province />
+          </View>
+          <View style={{flexDirection: 'row',paddingVertical: 22}}>
+            <Text style={{color: 'red', marginLeft: 10}}>*</Text>
+            <Text style={{color: 'black', fontWeight: 'bold', fontSize: 14}}>Địa chỉ cụ thể :</Text>
+            <View style={{position: 'absolute', left: 150, top: 8, }}>
+              <TextInput
+                style={{ color: '#303030', width: windowWidth - 200}}
+                placeholderTextColor={'gray'}
+                placeholder="vd: 22 đường số 7"
+                onChangeText={setDistrictHotel}
+              />
+            </View>
           </View>
           
         </View>     
 
-        <View style={{marginTop: 10, height: 5, backgroundColor: '#F3F3F3'}}></View>
         <View style={{marginTop: 10,}}>
           <View style={{alignItems: 'center', flexDirection: 'row'}}>
             <Text style={{color: 'black', fontWeight: 'bold', fontSize: 18, marginHorizontal: 15}}>Mã giới thiệu</Text>
@@ -149,7 +179,7 @@ const RegisInfoScreen: React.FC<
           <View style={{marginTop: 10, marginLeft: -20, height: 5, backgroundColor: '#F3F3F3'}}></View>
         </View> 
        
-        <TouchableOpacity onPress = {() => navigate('InsideRoute', {screen : ScreensName.OwnerRoute, params: {screen: ScreensName.RegisHotelScreen}}) } className='rounded-xl mt-10 mx-5'>
+        <TouchableOpacity onPress = {() => handleRegisHotel() } className='rounded-xl mt-10 mx-5'>
             <ButtonLinear text={'Đăng ký thông tin'}/>
         </TouchableOpacity>
         <View style={{height: 30}}></View>

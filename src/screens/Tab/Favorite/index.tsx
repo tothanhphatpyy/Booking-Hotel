@@ -30,7 +30,7 @@ const FavoriteScreen: React.FC<
       await runAsync().then((res: any) => {
         setRoomFavourite(res);
       }).catch((error) => {
-        console.log(error);
+        /* console.log(error); */
       })
     }
     fetchData();
