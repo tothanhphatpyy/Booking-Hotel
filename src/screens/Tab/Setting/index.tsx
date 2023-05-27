@@ -7,6 +7,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ButtonLinearSizeSM } from '@src/components/ButtonLinear';
 import Loading from '@src/components/Loading';
 import { useNavigation } from '@react-navigation/native';
+import { checkRole } from '@src/config/auth';
+
 
 
 const SettingScreen: React.FC<
@@ -14,6 +16,7 @@ const SettingScreen: React.FC<
 
     const [userInfo, setUserInfo] = useUserInfoState();
     const {navigate} : any = useNavigation();
+    console.log(userInfo);
 
     const listItem = [
       {
@@ -69,7 +72,10 @@ const SettingScreen: React.FC<
           console.log('not-oke');
           break;
         default:
-          navigate('InsideRoute', {screen : ScreensName.OwnerRoute, params: {screen: ScreensName.BecomeOwnerScreen}});
+          if(userInfo.role == 'owner')
+            navigate('InsideRoute', {screen : ScreensName.OwnerRoute, params: {screen: ScreensName.TabOwnerRoute}});
+          else
+            navigate('InsideRoute', {screen : ScreensName.OwnerRoute, params: {screen: ScreensName.BecomeOwnerScreen}});
       }
     }
 

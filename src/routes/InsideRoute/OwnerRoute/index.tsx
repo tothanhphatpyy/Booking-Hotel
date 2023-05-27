@@ -3,9 +3,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ScreensName, OwnerStackScreenParams } from '../../types';
 import { BecomeOwnerScreen } from '@src/screens/Inside/Owner/BecomeOwner';
 import { RegisHotelScreen } from '@src/screens/Inside/Owner/RegisHotel';
-import { DashboardOwnerScreen } from '@src/screens/Inside/Owner/Dashboard';
 import { RegisInfoScreen } from '@src/screens/Inside/Owner/RegisInfo';
 import { RegisConfirmScreen } from '@src/screens/Inside/Owner/ConfirmRegis';
+import { TabOwnerRoute } from './DashboardRoute';
 
 const OwnerStack = createNativeStackNavigator<OwnerStackScreenParams>();
 interface OnBoardingNavigatorProps {
@@ -35,9 +35,9 @@ const Stack: OnBoardingNavigatorProps[] = [
     title: 'Regis Confirm',
   },
   {
-    name: ScreensName.DashboardOwnerScreen,
-    component: DashboardOwnerScreen,
-    title: 'Dashboard Owner',
+    name: ScreensName.TabOwnerRoute,
+    component: TabOwnerRoute,
+    title: 'Dashboard Owner Tab',
   },
 ]
 

@@ -1,12 +1,12 @@
 import { StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
-import { ScreensName, OwnerRouteScreenProps} from '@src/routes/types'
+import { ScreensName, DashboardOwnerRouteScreenProps} from '@src/routes/types'
 import { Container } from '@src/components/Container';
 import * as Animatable from 'react-native-animatable';
 import i18n from '@src/ultis/i18n';
 
-const DashboardOwnerScreen: React.FC<
-  OwnerRouteScreenProps<ScreensName.DashboardOwnerScreen>> = () => {
+const CalendarScreen: React.FC<
+  DashboardOwnerRouteScreenProps<ScreensName.CalendarScreen>> = () => {
   
   return (
     <Container flex={1} background="WHITE" justify="center" align="center">
@@ -22,6 +22,6 @@ const DashboardOwnerScreen: React.FC<
   )
 }
 
-export {DashboardOwnerScreen}
+export { CalendarScreen }
 
 const styles = StyleSheet.create({})

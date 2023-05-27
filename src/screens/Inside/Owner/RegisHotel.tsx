@@ -23,7 +23,6 @@ const RegisHotelScreen: React.FC<
   
   const { navigate, goBack } : any = useNavigation();
   const [regisHotelInfo, setRegisHotelInfo] = useRegisHotelInfoState();
-  const [numberOfPeople, setnumberOfPeople] = useState(1)
 
   const handleSubmit = () => {
     navigate('InsideRoute', {screen : ScreensName.OwnerRoute, params: {screen: ScreensName.RegisConfirmScreen}}) 

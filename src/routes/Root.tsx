@@ -29,6 +29,9 @@ function Root() {
             email: user.email,
             role: checkRole(user.role),
             status: user.status,
+            number_accommodation: user.number_accommodation,
+            response_rate: user.response_rate,
+            cancellation_rate: user.cancellation_rate,
           }))
         }
         

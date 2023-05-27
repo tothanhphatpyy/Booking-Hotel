@@ -4,11 +4,14 @@ const USER_INFO = atom({
   key: 'USER_STATE', // unique ID (with respect to other atoms/selectors)
   default: {
     id: '',
-    username: '',
+    sdt: '',
     name: '',
     email: '',
     role: '',
     status: 0,
+    number_accommodation: 0,
+    response_rate: 0,
+    cancellation_rate: 0,
   }, // default value (aka initial value)
 });
 

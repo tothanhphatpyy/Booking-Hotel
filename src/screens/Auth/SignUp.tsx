@@ -9,17 +9,18 @@ import Loading from '@src/components/Loading';
 import {ButtonLinear} from '@src/components/ButtonLinear';
 import { useUserInfoState } from '@src/atom/user';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { checkRole } from '@src/config/auth';
 
 const SignUpScreen: React.FC<
 AuthRouteScreenProps<ScreensName.SignUpScreen>>= () => {
   const [userInfo, setUserInfo] = useUserInfoState();
   const { navigate }: any = useNavigation();
-  const [userName, setUserName] = useState('');
+  const [sdt, setSdt] = useState('');
   const [passWord, setPassWord] = useState('');
 
   const { data, runAsync, loading } = useRequest(async () => 
     loginApi({
-      username: userName, 
+      sdt: sdt, 
       password : passWord
     }),{ debounceWait: 300, manual: true});
 
@@ -27,11 +28,14 @@ AuthRouteScreenProps<ScreensName.SignUpScreen>>= () => {
     await runAsync().then((res: any) => {
       setUserInfo(user => ({...user, 
         id: res._id, 
-        username: res.username,
+        sdt: res.sdt,
         name: res.name,
         email: res.email,
-        role: res.role,
+        role: checkRole(res.role),
         status: res.status,
+        number_accommodation: res.number_accommodation,
+        response_rate: res.response_rate,
+        cancellation_rate: res.cancellation_rate,
       }))
       AsyncStorage.setItem('user', JSON.stringify(res));
       navigate('TabRoute', {screen : ScreensName.HomeScreen});
@@ -54,9 +58,9 @@ AuthRouteScreenProps<ScreensName.SignUpScreen>>= () => {
         <View className='ml-5 mt-1'>
           <Text className='text-xl text-gray-950 mt-5 text-left font-semibold'>Số điện thoại</Text>
             <TextInput
-            value={userName}
+            value={sdt}
             className='text-gray border-gray-400 border-b w-9/12 text-black text-base'
-            onChangeText={text => setUserName(text)}
+            onChangeText={text => setSdt(text)}
             placeholderTextColor={'gray'}
             placeholder="Nhập số điện thoại của bạn"
             keyboardType="numeric"

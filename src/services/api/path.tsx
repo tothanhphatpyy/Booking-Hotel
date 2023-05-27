@@ -24,4 +24,7 @@ export const PATH = {
   add_favorite_room_byUser: '/add-room-favorite',
   list_favorite_room_byUser: '/room-favorite-by-user?userID=',
   delete_favorite_room_byUser: '/delete-room-favorite',
+
+  //OWNER_API_KEY
+  list_hotel_byOwner: '/list-hotel-by-owner/',
 };

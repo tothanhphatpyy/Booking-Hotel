@@ -1,10 +1,10 @@
 const checkRole = (role : number) => {
   if(role == 0)
-    return 'user';
+    return 'admin';
   else if(role == 1)
     return 'owner';
   else
-    return 'admin';
+    return 'user';
 }
 
 export { checkRole }
