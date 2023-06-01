@@ -99,23 +99,29 @@ const HomeOwnerScreen: React.FC<
                 {item.numberPeople} khách • {item.numberBedRoom} phòng ngủ • {item.numberBathRoom} phòng tắm
               </Text>
             </View>
+            
             <View style={{flexDirection: 'row', marginTop: 15, marginHorizontal: 15, justifyContent: 'space-between'}}>
               <Text style={{color: 'black', fontWeight: 'bold', fontSize: 15}}>{item.priceMon_Fri}đ̲ </Text>
+              
               <Text style={{color: 'orange', fontWeight: 'bold', fontSize: 14, borderBottomColor: 'orange', borderBottomWidth: 1}}>Xem chi tiết</Text>
             </View>
             
             <View style={{flexDirection: 'row', marginTop: 15, marginHorizontal: 15, justifyContent: 'center'}}>
-              <ButtonLinearGray text={'Chỉnh sửa thông tin'} />
+              
+              <TouchableOpacity style={{flexDirection: 'row', backgroundColor: '#E8E8E8', paddingHorizontal: 30, paddingVertical: 10, alignItems: 'center', borderRadius: 15}}
+                                  onPress={() =>{
+                                   console.log('click');
+                                   navigate('InsideRoute', {screen : ScreensName.OwnerRoute, params: {screen: ScreensName.CalendarOfRoomScreen, params: {roomInfo : item}}})}
+                                   } >
+                <Text style={{color: 'black', fontWeight: 'bold', fontSize: 14, marginLeft: 5}}>Quản lý chỗ ở và lịch đặt phòng</Text>
+              </TouchableOpacity>
             </View>
           </TouchableOpacity>
           </View>
         )}        
-        <View style={{height: 200}}></View>
       </View>
       
-
-      
-      <View style={{height: 500}}></View>
+      <View style={{height: 200}}></View>
     </ScrollView>
   )
 }

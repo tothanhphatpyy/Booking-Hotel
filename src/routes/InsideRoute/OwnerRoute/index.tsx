@@ -6,6 +6,7 @@ import { RegisHotelScreen } from '@src/screens/Inside/Owner/RegisHotel';
 import { RegisInfoScreen } from '@src/screens/Inside/Owner/RegisInfo';
 import { RegisConfirmScreen } from '@src/screens/Inside/Owner/ConfirmRegis';
 import { TabOwnerRoute } from './DashboardRoute';
+import { CalendarOfRoomScreen } from '@src/screens/Inside/Owner/Dashboard/CalendarOfRoom';
 
 const OwnerStack = createNativeStackNavigator<OwnerStackScreenParams>();
 interface OnBoardingNavigatorProps {
@@ -38,6 +39,11 @@ const Stack: OnBoardingNavigatorProps[] = [
     name: ScreensName.TabOwnerRoute,
     component: TabOwnerRoute,
     title: 'Dashboard Owner Tab',
+  },
+  {
+    name: ScreensName.CalendarOfRoomScreen,
+    component: CalendarOfRoomScreen,
+    title: 'Calendar of Room',
   },
 ]
 

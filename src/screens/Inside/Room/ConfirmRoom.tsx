@@ -469,7 +469,7 @@ const ConfirmRoomScreen: React.FC<
             <Text style={{color: 'black', fontSize: 18, fontWeight: 'bold'}}>{totalPrice()}đ</Text>
         </View>
 
-        <TouchableOpacity onPress = {() => {submitOder()} } className='rounded-xl mx-5'>
+        <TouchableOpacity onPress = {() => {submitOder()} } className='rounded-xl mx-5 mt-10'>
           <ButtonLinear text={'Đặt phòng'}/>
         </TouchableOpacity>
         

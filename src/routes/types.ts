@@ -34,6 +34,8 @@ export enum ScreensName {
   //DashboardOwner
   HomeOwnerScreen = 'HomeOwnerScreen',
   CalendarScreen = 'CalendarScreen',
+  CalendarOfRoomScreen = 'CalendarOfRoomScreen',
+  DetailRoomScreen = 'DetailRoomScreen',
 
   /* Route */
   //route in Auth
@@ -142,6 +144,7 @@ export type OwnerStackScreenParams = {
   [ScreensName.RegisHotelScreen] : undefined;
   [ScreensName.RegisConfirmScreen] : undefined;
   [ScreensName.TabOwnerRoute] : undefined;
+  [ScreensName.CalendarOfRoomScreen] : undefined;
 }
     
 export type OwnerRouteScreenProps<T extends keyof OwnerStackScreenParams> =

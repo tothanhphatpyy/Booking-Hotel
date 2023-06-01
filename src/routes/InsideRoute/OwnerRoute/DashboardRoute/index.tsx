@@ -24,8 +24,8 @@ const TabNavigator: TabNavigatorProps[] = [
   {
     name: ScreensName.CalendarScreen,
     component: CalendarScreen,
-    title: 'Lịch',
-    img: 'https://i.imgur.com/u2XSpbI.png',
+    title: 'Lịch đặt phòng',
+    img: 'https://i.imgur.com/0zLWkTR.png',
   },
 ];
 

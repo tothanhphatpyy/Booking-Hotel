@@ -72,7 +72,7 @@ const RegisInfoScreen: React.FC<
           <View style={{marginTop: 10, marginLeft: 20, flexDirection: 'row'}}>
             <FontAwesome name={'phone'} color={'#444'} size={18} style={{marginHorizontal: 5}}/>
             <Text style={{fontSize: 14, color: '#606060'}}>Số điện thoại: </Text>
-            <Text style={{fontSize: 14, fontWeight: 'bold', color: '#FF8C00'}}>{userInfo.username}</Text>
+            <Text style={{fontSize: 14, fontWeight: 'bold', color: '#FF8C00'}}>{userInfo.sdt}</Text>
           </View> 
           <View style={{marginTop: 10, marginLeft: 20, flexDirection: 'row'}}>
             <FontAwesome name={'envelope'} color={'#444'} size={18} style={{marginHorizontal: 5}}/>
